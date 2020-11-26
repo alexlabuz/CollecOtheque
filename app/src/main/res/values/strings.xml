@@ -3,4 +3,6 @@
     <string name="add_user">Ajouter un utilisateur</string>
     <string name="add_btn">Ajouter</string>
     <string name="choise_user">Choisissez un utilisateur</string>
+    <string name="myLibrary">Mes bibliothèques</string>
+    <string name="library_name_chose">Nom de la bibliothèque</string>
 </resources>

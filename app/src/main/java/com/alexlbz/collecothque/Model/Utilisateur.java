@@ -16,13 +16,6 @@ public class Utilisateur {
     @ColumnInfo(name = "email")
     private String email;
 
-    public Utilisateur(Integer id, String nom, String email) {
-        this.id = id;
-        this.nom = nom;
-        this.email = email;
-    }
-
-    @Ignore
     public Utilisateur(String nom, String email){
         this.nom = nom;
         this.email = email;
