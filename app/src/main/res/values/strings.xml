@@ -5,4 +5,7 @@
     <string name="choise_user">Choisissez un utilisateur</string>
     <string name="myLibrary">Mes bibliothèques</string>
     <string name="library_name_chose">Nom de la bibliothèque</string>
+    <string name="shelf_name_chose">Nom de l\'étagère</string>
+    <string name="shelf_color_chose">Couleur de l\'étagère</string>
+    <string name="shelf_title">Etagères de %s</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.alexlbz.collecothque;
+package com.alexlbz.collecothque.Model.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alexlbz.collecothque.Model.Bibliotheque;
+import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
+import com.alexlbz.collecothque.R;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public abstract class BibliothequeAdapter extends RecyclerView.Adapter<Bibliothe
 
     private List<Bibliotheque> bibliothequeList;
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView mTextRowName;
         private CardView mCardRowLibrary;
 
@@ -45,6 +46,7 @@ public abstract class BibliothequeAdapter extends RecyclerView.Adapter<Bibliothe
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Bibliotheque b = bibliothequeList.get(position);
         holder.mTextRowName.setText(b.getName());
+        holder.mCardRowLibrary.setTag(b);
         holder.mCardRowLibrary.setOnClickListener(this);
     }
 

@@ -32,7 +32,8 @@
             android:layout_gravity="end|bottom"
             app:srcCompat="@drawable/ic_baseline_add"
             android:focusable="true"
-            tools:ignore="VectorDrawableCompat" />
+            tools:ignore="VectorDrawableCompat"
+            android:layout_margin="12dp"/>
 
     </FrameLayout>
 

@@ -2,11 +2,10 @@ package com.alexlbz.collecothque.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,13 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexlbz.collecothque.AppDatabase;
-import com.alexlbz.collecothque.BibliothequeAdapter;
-import com.alexlbz.collecothque.Model.Bibliotheque;
-import com.alexlbz.collecothque.Model.Utilisateur;
+import com.alexlbz.collecothque.Model.Adapter.BibliothequeAdapter;
+import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
+import com.alexlbz.collecothque.Model.Entity.Utilisateur;
 import com.alexlbz.collecothque.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context = this;
     private Utilisateur utilisateur;
     public static final String DATABASE_NAME = "collecotheque";
+    public static final String INTENT_EXTRA_ID_LIBRARY = "INTENT_EXTRA_ID_LIBRARY";
 
     private FloatingActionButton mBtnAddLibrary;
     private RecyclerView mRecyclerLibrary;
@@ -68,18 +67,23 @@ public class MainActivity extends AppCompatActivity {
         };
         this.mRecyclerLibrary.setAdapter(adapter);
         this.mRecyclerLibrary.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     private void openLibrairy(View view) {
-        Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+        // Récupère l'id de la bibliotheque passé en tag dans le CardView
+        Bibliotheque bibliotheque = (Bibliotheque) view.getTag();
+
+        // Et transmet l'id à la l'activité ShelfActivity
+        Intent intent = new Intent(MainActivity.this, ShelfActivity.class);
+        intent.putExtra(INTENT_EXTRA_ID_LIBRARY, bibliotheque);
+        startActivity(intent);
     }
 
     private void clicAddBtn() {
         final View view = getLayoutInflater().inflate(R.layout.add_library, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ajouter une bibliothèque")
-                .setMessage("Veuillez saisir le nom de la nouvelle base de données")
+                .setMessage("Veuillez saisir le nom de la nouvelle bibliothèque")
                 .setView(view)
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override

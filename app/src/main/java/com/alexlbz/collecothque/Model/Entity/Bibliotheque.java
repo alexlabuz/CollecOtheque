@@ -1,11 +1,13 @@
-package com.alexlbz.collecothque.Model;
+package com.alexlbz.collecothque.Model.Entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Bibliotheque {
+public class Bibliotheque implements Serializable {
     @PrimaryKey
     private Integer id;
 
