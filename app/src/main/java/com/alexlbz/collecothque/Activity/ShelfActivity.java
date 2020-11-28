@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,19 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alexlbz.collecothque.AppDatabase;
-import com.alexlbz.collecothque.Model.Adapter.BibliothequeAdapter;
 import com.alexlbz.collecothque.Model.Adapter.EtagereAdapter;
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
 import com.alexlbz.collecothque.Model.Entity.Etageres;
 import com.alexlbz.collecothque.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ShelfActivity extends AppCompatActivity {
+public class BookActivity extends AppCompatActivity {
 
     private AppDatabase db;
     private Bibliotheque bibliotheque;
+
+    private static String INTENT_EXTRA_SHELF = "INTENT_EXTRA_SHELF";
 
     private TextView mTextShelfTitle;
     private RecyclerView mRecyclerShelf;
@@ -45,7 +48,7 @@ public class ShelfActivity extends AppCompatActivity {
         this.mBtnAddShelf = findViewById(R.id.btnAddShelf);
 
         if(getIntent() != null){
-            this.bibliotheque = (Bibliotheque) getIntent().getSerializableExtra(MainActivity.INTENT_EXTRA_ID_LIBRARY);
+            this.bibliotheque = (Bibliotheque) getIntent().getSerializableExtra(MainActivity.INTENT_EXTRA_LIBRARY);
         }
 
         this.mTextShelfTitle.setText(String.format(getString(R.string.shelf_title), this.bibliotheque.getName()));
@@ -72,8 +75,13 @@ public class ShelfActivity extends AppCompatActivity {
     }
 
     private void openShelf(View view) {
-        String text = ((Etageres) view.getTag()).getLibelle();
-        Toast.makeText(this, "Etagère " + text, Toast.LENGTH_SHORT).show();
+        // Récupère l'étagère selectionné dans la liste (En tag dans le CardView)
+        Etageres etageres  = (Etageres) view.getTag();
+
+        Intent intent = new Intent(BookActivity.this, CollectionActivity.class);
+        intent.putExtra(MainActivity.INTENT_EXTRA_LIBRARY, this.bibliotheque);
+        intent.putExtra(BookActivity.INTENT_EXTRA_SHELF, (Serializable) etageres);
+        startActivity(intent);
     }
 
     private void clicAddBtn() {
