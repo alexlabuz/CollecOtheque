@@ -4,17 +4,17 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.alexlbz.collecothque.Model.Entity.Etageres;
+import com.alexlbz.collecothque.Model.Entity.Etagere;
 
 import java.util.List;
 
 @Dao
 public interface EtageresDao {
 
-    @Query("SELECT * FROM Etageres WHERE idLibrary = :idLibrary")
-    List<Etageres> getByLibrary(Integer idLibrary);
+    @Query("SELECT * FROM Etagere WHERE idLibrary = :idLibrary")
+    List<Etagere> getByLibrary(Integer idLibrary);
 
     @Insert
-    void insert(Etageres etageres);
+    void insert(Etagere etageres);
 
 }

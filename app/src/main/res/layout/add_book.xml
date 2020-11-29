@@ -12,22 +12,30 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
 
-        <EditText
-            android:id="@+id/editTextAddShelf"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/shelf_name_chose"
+            android:text="Code ISBN"/>
+        <EditText
+            android:id="@+id/editTextAddBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/book_color_chose"
             android:inputType="text"
             android:autofillHints="" />
 
-        <EditText
-            android:id="@+id/editColorAddShelf"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/shelf_color_chose"
-            android:inputType="number"
-            android:autofillHints="" />
+            android:layout_marginTop="15dp"
+            android:text="Collection"/>
+        <Spinner
+            android:id="@+id/spinnerCollectionAddBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+
 
 </LinearLayout>

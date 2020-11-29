@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context = this;
     private Utilisateur utilisateur;
     public static final String DATABASE_NAME = "collecotheque";
-    public static final String INTENT_EXTRA_ID_LIBRARY = "INTENT_EXTRA_ID_LIBRARY";
+    public static final String INTENT_EXTRA_LIBRARY = "INTENT_EXTRA_ID_LIBRARY";
 
     private FloatingActionButton mBtnAddLibrary;
     private RecyclerView mRecyclerLibrary;
@@ -70,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openLibrairy(View view) {
-        // Récupère l'id de la bibliotheque passé en tag dans le CardView
+        // Récupère la bibliotheque selectionné dans la liste (En tag dans le CardView)
         Bibliotheque bibliotheque = (Bibliotheque) view.getTag();
 
-        // Et transmet l'id à la l'activité ShelfActivity
+        // Et transmet la bibliotheque l'activité ShelfActivity
         Intent intent = new Intent(MainActivity.this, ShelfActivity.class);
-        intent.putExtra(INTENT_EXTRA_ID_LIBRARY, bibliotheque);
+        intent.putExtra(INTENT_EXTRA_LIBRARY, bibliotheque);
         startActivity(intent);
     }
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addBook(""+((EditText) view.findViewById(R.id.editTextAddBook)).getText());
+                        addBook(""+((EditText) view.findViewById(R.id.editTextAddLibrary)).getText());
                     }
                 })
                 .setNegativeButton("Annuler", null)

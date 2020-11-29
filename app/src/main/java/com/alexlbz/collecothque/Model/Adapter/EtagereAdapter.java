@@ -9,14 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alexlbz.collecothque.Model.Entity.Etageres;
+import com.alexlbz.collecothque.Model.Entity.Etagere;
 import com.alexlbz.collecothque.R;
 
 import java.util.List;
 
 public abstract class EtagereAdapter extends RecyclerView.Adapter<EtagereAdapter.ViewHolder> implements View.OnClickListener {
 
-    private List<Etageres> etagereList;
+    private List<Etagere> etagereList;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView mTextRowName;
@@ -29,7 +29,7 @@ public abstract class EtagereAdapter extends RecyclerView.Adapter<EtagereAdapter
         }
     }
 
-    public EtagereAdapter(List<Etageres> etagereList) {
+    public EtagereAdapter(List<Etagere> etagereList) {
         this.etagereList = etagereList;
     }
 
@@ -44,7 +44,7 @@ public abstract class EtagereAdapter extends RecyclerView.Adapter<EtagereAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Etageres e = etagereList.get(position);
+        Etagere e = etagereList.get(position);
         holder.mTextRowName.setText(e.getLibelle());
         holder.mCardRowShelf.setCardBackgroundColor(e.getColor());
         holder.mCardRowShelf.setTag(e);

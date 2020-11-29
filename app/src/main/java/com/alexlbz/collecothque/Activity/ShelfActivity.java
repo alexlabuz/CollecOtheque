@@ -16,19 +16,19 @@ import android.widget.Toast;
 import com.alexlbz.collecothque.AppDatabase;
 import com.alexlbz.collecothque.Model.Adapter.EtagereAdapter;
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
-import com.alexlbz.collecothque.Model.Entity.Etageres;
+import com.alexlbz.collecothque.Model.Entity.Etagere;
 import com.alexlbz.collecothque.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class BookActivity extends AppCompatActivity {
+public class ShelfActivity extends AppCompatActivity {
 
     private AppDatabase db;
     private Bibliotheque bibliotheque;
 
-    private static String INTENT_EXTRA_SHELF = "INTENT_EXTRA_SHELF";
+    public static String INTENT_EXTRA_SHELF = "INTENT_EXTRA_SHELF";
 
     private TextView mTextShelfTitle;
     private RecyclerView mRecyclerShelf;
@@ -51,7 +51,7 @@ public class BookActivity extends AppCompatActivity {
             this.bibliotheque = (Bibliotheque) getIntent().getSerializableExtra(MainActivity.INTENT_EXTRA_LIBRARY);
         }
 
-        this.mTextShelfTitle.setText(String.format(getString(R.string.shelf_title), this.bibliotheque.getName()));
+        this.mTextShelfTitle.setText(String.format(getString(R.string.shelf_list_title), this.bibliotheque.getName()));
         this.mBtnAddShelf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +63,7 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void refrechShelfList(){
-        List<Etageres> etagereList = this.db.etageresDao().getByLibrary(this.bibliotheque.getId());
+        List<Etagere> etagereList = this.db.etageresDao().getByLibrary(this.bibliotheque.getId());
         EtagereAdapter adapter = new EtagereAdapter(etagereList) {
             @Override
             public void onClick(View view) {
@@ -76,11 +76,11 @@ public class BookActivity extends AppCompatActivity {
 
     private void openShelf(View view) {
         // Récupère l'étagère selectionné dans la liste (En tag dans le CardView)
-        Etageres etageres  = (Etageres) view.getTag();
+        Etagere etageres  = (Etagere) view.getTag();
 
-        Intent intent = new Intent(BookActivity.this, CollectionActivity.class);
+        Intent intent = new Intent(ShelfActivity.this, BookListActivity.class);
         intent.putExtra(MainActivity.INTENT_EXTRA_LIBRARY, this.bibliotheque);
-        intent.putExtra(BookActivity.INTENT_EXTRA_SHELF, (Serializable) etageres);
+        intent.putExtra(ShelfActivity.INTENT_EXTRA_SHELF, (Serializable) etageres);
         startActivity(intent);
     }
 
@@ -93,15 +93,15 @@ public class BookActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addBook(""+((EditText) view.findViewById(R.id.editTextAddBook)).getText(), Integer.parseInt(""+((EditText) view.findViewById(R.id.editColorAddBook)).getText()));
+                        addShelf(""+((EditText) view.findViewById(R.id.editTextAddShelf)).getText(), Integer.parseInt(""+((EditText) view.findViewById(R.id.editColorAddShelf)).getText()));
                     }
                 })
                 .setNegativeButton("Annuler", null)
                 .create().show();
     }
 
-    private void addBook(String shelfName, Integer shelfColor) {
-        this.db.etageresDao().insert(new Etageres(shelfName, shelfColor, this.bibliotheque.getId()));
+    private void addShelf(String shelfName, Integer shelfColor) {
+        this.db.etageresDao().insert(new Etagere(shelfName, shelfColor, this.bibliotheque.getId()));
         Toast.makeText(this, "L'étagère à était ajouter à " + this.bibliotheque.getName(), Toast.LENGTH_SHORT).show();
         refrechShelfList();
     }

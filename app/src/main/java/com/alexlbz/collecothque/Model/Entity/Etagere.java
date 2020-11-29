@@ -4,8 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Etageres {
+public class Etagere implements Serializable {
     @PrimaryKey
     private Integer id;
 
@@ -18,7 +20,7 @@ public class Etageres {
     @ColumnInfo(name = "idLibrary")
     private Integer idLibrary;
 
-    public Etageres(String libelle, Integer color, Integer idLibrary) {
+    public Etagere(String libelle, Integer color, Integer idLibrary) {
         this.libelle = libelle;
         this.color = color;
         this.idLibrary = idLibrary;

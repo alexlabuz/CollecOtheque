@@ -3,9 +3,13 @@
     <string name="add_user">Ajouter un utilisateur</string>
     <string name="add_btn">Ajouter</string>
     <string name="choise_user">Choisissez un utilisateur</string>
-    <string name="myLibrary">Mes bibliothèques</string>
+
+    <string name="library_list_title">Mes bibliothèques</string>
+    <string name="shelf_list_title">Etagères de %s</string>
+    <string name="book_list_title">%s / %s</string>
+
     <string name="library_name_chose">Nom de la bibliothèque</string>
     <string name="shelf_name_chose">Nom de l\'étagère</string>
     <string name="shelf_color_chose">Couleur de l\'étagère</string>
-    <string name="shelf_title">Etagères de %s</string>
+    <string name="book_color_chose">Code ISBN du livre</string>
 </resources>
