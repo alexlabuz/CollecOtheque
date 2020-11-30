@@ -2,6 +2,7 @@
     <string name="app_name">CollecOthèque</string>
     <string name="add_user">Ajouter un utilisateur</string>
     <string name="add_btn">Ajouter</string>
+    <string name="btn_add_collection">Ajouter une collection de livre</string>
     <string name="choise_user">Choisissez un utilisateur</string>
 
     <string name="library_list_title">Mes bibliothèques</string>
@@ -12,4 +13,6 @@
     <string name="shelf_name_chose">Nom de l\'étagère</string>
     <string name="shelf_color_chose">Couleur de l\'étagère</string>
     <string name="book_color_chose">Code ISBN du livre</string>
+    <string name="collection_name_chose">Nom de la collection</string>
+
 </resources>

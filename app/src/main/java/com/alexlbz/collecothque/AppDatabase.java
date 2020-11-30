@@ -12,6 +12,7 @@ import com.alexlbz.collecothque.Model.Dao.BibliothequeDao;
 import com.alexlbz.collecothque.Model.Entity.Collection;
 import com.alexlbz.collecothque.Model.Entity.Etagere;
 import com.alexlbz.collecothque.Model.Dao.EtageresDao;
+import com.alexlbz.collecothque.Model.Entity.Livre;
 import com.alexlbz.collecothque.Model.Entity.Utilisateur;
 import com.alexlbz.collecothque.Model.Dao.UtilisateurDao;
 

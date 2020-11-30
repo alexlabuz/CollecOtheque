@@ -24,6 +24,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <Button
+            android:id="@+id/btnAddCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_add_collection"/>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAddBook"
             android:layout_width="match_parent"
