@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alexlbz.collecothque.AppDatabase;
+import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Adapter.EtagereAdapter;
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
 import com.alexlbz.collecothque.Model.Entity.Etagere;

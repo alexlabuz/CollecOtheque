@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alexlbz.collecothque.AppDatabase;
+import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Adapter.BibliothequeAdapter;
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
 import com.alexlbz.collecothque.Model.Entity.Utilisateur;

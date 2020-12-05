@@ -15,4 +15,7 @@
     <string name="book_color_chose">Code ISBN du livre</string>
     <string name="collection_name_chose">Nom de la collection</string>
 
+    <string name="book_info">Editeur : %s \nDate de paruption : %s \nNombre de page : %s \nCode ISBN : %s</string>
+    <string name="load_book_text">Nous recherchons votre livre...</string>
+
 </resources>

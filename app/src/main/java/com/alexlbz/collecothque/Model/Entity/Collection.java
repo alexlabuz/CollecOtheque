@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class Collection {
+public class Collection implements Serializable{
     @PrimaryKey
     private Integer id;
 

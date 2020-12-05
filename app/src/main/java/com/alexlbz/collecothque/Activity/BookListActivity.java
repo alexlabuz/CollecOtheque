@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.alexlbz.collecothque.AppDatabase;
+import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
 import com.alexlbz.collecothque.Model.Entity.Collection;
 import com.alexlbz.collecothque.Model.Entity.Etagere;
@@ -34,6 +35,8 @@ public class BookListActivity extends AppCompatActivity {
     private FloatingActionButton mBtnAddBook;
     private Button mBtnAddCollection;
 
+    public final static String INTENT_EXTRA_ISBN = "INTENT_EXTRA_ISBN";
+    public final static String INTENT_EXTRA_COLLECTION = "INTENT_EXTRA_COLLECTION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,7 @@ public class BookListActivity extends AppCompatActivity {
         this.mBtnAddBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clicAddBtn();
+                clicAddBookBtn();
             }
         });
 
@@ -72,24 +75,25 @@ public class BookListActivity extends AppCompatActivity {
         });
     }
 
-    private void clicAddBtn() {
+    private void clicAddBookBtn() {
         final View view = getLayoutInflater().inflate(R.layout.add_book, null);
 
+        // Récupère le spinner (menu déroulant)
+        final Spinner spinner = view.findViewById(R.id.spinnerCollectionAddBook);
+        // Récupère et stocke les collection dans une liste
+        final List<Collection> collectionList = this.db.collectionDao().selectByEtagere(this.etagere.getId());
 
-        // Et les insére dans le spinner d'ajout de livre
-        Spinner spinner = view.findViewById(R.id.spinnerCollectionAddBook);
-
-        List<Collection> collectionList = this.db.collectionDao().selectByEtagere(this.etagere.getId());
-
-        // Créer des collections de test
-        ArrayList<String> itemsSpinner = new ArrayList<String>();
+        // Créer une une seconde liste (type string) qui contiendra les noms des collections
+        ArrayList<String> labelSpinnerList = new ArrayList<String>();
         for(Collection c : collectionList){
-            itemsSpinner.add(c.getLibelle());
+            labelSpinnerList.add(c.getLibelle());
         }
 
-        ArrayAdapter<String> itemsSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemsSpinner);
+        // Ajoute les noms de collection dans le spinner
+        ArrayAdapter<String> itemsSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, labelSpinnerList);
         spinner.setAdapter(itemsSpinnerAdapter);
 
+        ((EditText) view.findViewById(R.id.editIsbnAddBook)).setText("9782203001206");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ajouter un livre")
                 .setMessage("Veuillez saisir le code ISBN du livre")
@@ -97,11 +101,20 @@ public class BookListActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        String isbn = ""+((EditText) view.findViewById(R.id.editIsbnAddBook)).getText();
+                        Collection collection = collectionList.get(spinner.getSelectedItemPosition());
+                        addBook(isbn, collection);
                     }
                 })
                 .setNegativeButton("Annuler", null)
                 .create().show();
+    }
+
+    private void addBook(String isbn, Collection collection) {
+        Intent intent = new Intent(BookListActivity.this, BookActivity.class);
+        intent.putExtra(INTENT_EXTRA_ISBN, isbn);
+        intent.putExtra(INTENT_EXTRA_COLLECTION, collection);
+        startActivity(intent);
     }
 
     private void clicAddCollectionBtn() {
@@ -124,6 +137,5 @@ public class BookListActivity extends AppCompatActivity {
     private void addCollection(String s) {
         this.db.collectionDao().insert(new Collection(s, this.etagere.getId()));
     }
-
 
 }
