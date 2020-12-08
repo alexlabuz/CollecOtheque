@@ -101,9 +101,11 @@ public class ShelfActivity extends AppCompatActivity {
     }
 
     private void addShelf(String shelfName, Integer shelfColor) {
-        this.db.etageresDao().insert(new Etagere(shelfName, shelfColor, this.bibliotheque.getId()));
-        Toast.makeText(this, "L'étagère à était ajouter à " + this.bibliotheque.getName(), Toast.LENGTH_SHORT).show();
-        refrechShelfList();
+        if(shelfName.length() > 0 && shelfColor != null){
+            this.db.etageresDao().insert(new Etagere(shelfName, shelfColor, this.bibliotheque.getId()));
+            Toast.makeText(this, "L'étagère à était ajouter à " + this.bibliotheque.getName(), Toast.LENGTH_SHORT).show();
+            refrechShelfList();
+        }
     }
 
 }

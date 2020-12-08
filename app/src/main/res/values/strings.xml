@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CollecOthèque</string>
+    <string name="app_name">CollecOthèque [BETA]</string>
     <string name="add_user">Ajouter un utilisateur</string>
     <string name="add_btn">Ajouter</string>
     <string name="btn_add_collection">Ajouter une collection de livre</string>
@@ -16,6 +16,6 @@
     <string name="collection_name_chose">Nom de la collection</string>
 
     <string name="book_info">Editeur : %s \nDate de paruption : %s \nNombre de page : %s \nCode ISBN : %s</string>
-    <string name="load_book_text">Nous recherchons votre livre...</string>
+    <string name="load_book_text">Nous recherchons votre livre…</string>
 
 </resources>

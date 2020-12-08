@@ -96,9 +96,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addBook(String bookName) {
-        this.db.bibliothequeDao().insert(new Bibliotheque(bookName, 1));
-        Toast.makeText(this, "La bibliothèque à était crée", Toast.LENGTH_SHORT).show();
-        refrechLibraryList();
+        if(bookName.length() > 0){
+            this.db.bibliothequeDao().insert(new Bibliotheque(bookName, 1));
+            Toast.makeText(this, "La bibliothèque à était crée", Toast.LENGTH_SHORT).show();
+            refrechLibraryList();
+        }
     }
 
 

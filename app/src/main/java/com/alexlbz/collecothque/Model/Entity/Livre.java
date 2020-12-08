@@ -1,11 +1,13 @@
 package com.alexlbz.collecothque.Model.Entity;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class Livre {
+@Entity
+public class Livre implements Serializable {
     @PrimaryKey
     private Integer id;
 
