@@ -17,5 +17,9 @@
 
     <string name="book_info">Editeur : %s \nDate de paruption : %s \nNombre de page : %s \nCode ISBN : %s</string>
     <string name="load_book_text">Nous recherchons votre livre…</string>
+    <string name="info_publisher">Editeur</string>
+    <string name="info_publication">Date de paruption</string>
+    <string name="info_nb_page">Nombre de page</string>
+    <string name="info_isbn">Code ISBN</string>
 
 </resources>

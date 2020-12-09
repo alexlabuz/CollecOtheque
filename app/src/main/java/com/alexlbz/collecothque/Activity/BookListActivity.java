@@ -83,7 +83,7 @@ public class BookListActivity extends AppCompatActivity {
 
     private void refreshBookList(){
         List<Livre> livreList = db.livreDao().getByEtagere(this.etagere.getId());
-        BookAdapter bookAdapter = new BookAdapter(livreList) {
+        BookAdapter bookAdapter = new BookAdapter(livreList, this) {
             @Override
             public void onClick(View view) {
                 clicBook(view);

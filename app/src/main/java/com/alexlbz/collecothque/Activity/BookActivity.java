@@ -1,7 +1,5 @@
 package com.alexlbz.collecothque.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,9 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Entity.Collection;
@@ -21,17 +20,11 @@ import com.alexlbz.collecothque.Model.RequestDatabase;
 import com.alexlbz.collecothque.R;
 import com.android.volley.VolleyError;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.StringTokenizer;
 
 public class BookActivity extends AppCompatActivity {
-
     private TextView mTextBookName;
     private ImageView mImageBook;
-    private TextView mTextBookInfo;
     private Button mBtnAddBook;
 
     private final static Integer LAYOUT_MAIN = 0;
@@ -57,7 +50,6 @@ public class BookActivity extends AppCompatActivity {
     private void init() {
         this.mTextBookName = findViewById(R.id.textBookName);
         this.mImageBook = findViewById(R.id.imageBook);
-        this.mTextBookInfo = findViewById(R.id.textBookInfo);
         this.mBtnAddBook = findViewById(R.id.btnAddBook);
 
         this.request = new RequestDatabase(this) {
@@ -73,7 +65,7 @@ public class BookActivity extends AppCompatActivity {
         };
         this.db = AppDatabase.getInstance(this);
 
-        // Si un code isbn est passé dans l'intent, cela veux dire qu'on ajoute un nouveau livre
+        // Si un code isbn est passé dans l'intent, on recherche le livre sinon on affiche le livre déjà existany
         if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) != null){
             rechercheLivre(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN));
             this.etagere = (Etagere) getIntent().getSerializableExtra(ShelfActivity.INTENT_EXTRA_SHELF);
@@ -90,29 +82,57 @@ public class BookActivity extends AppCompatActivity {
                 addBookLibrary();
             }
         });
-
     }
 
+    /**
+     * Ajoute le livre dans la bibliothèque
+     */
     private void addBookLibrary() {
         this.db.livreDao().insert(this.livre);
         Toast.makeText(this, "Le livre " + this.livre.getTitre() + " à bien était ajouté", Toast.LENGTH_SHORT).show();
         finish();
     }
 
+    /**
+     * Actualise les données affiché à l'écran
+     */
     private void bookDisplay(){
         request.recupImage("https://covers.openlibrary.org/b/id/" + livre.getImage() + ".jpg", VOLLEY_DATA_BOOK_IMAGE);
         this.mTextBookName.setText(livre.getTitre());
-        this.mTextBookInfo.setText(String.format(getString(R.string.book_info), livre.getEditeur(), livre.getDateParution(), ""+livre.getNbDePage(), livre.getIsbn()));
+        ((TextView) findViewById(R.id.text_info_publisher)).setText(verifNull(livre.getEditeur()));
+        ((TextView) findViewById(R.id.text_info_paruption)).setText(verifNull(livre.getDateParution()));
+        ((TextView) findViewById(R.id.text_info_nb_page)).setText(verifNull(String.valueOf(livre.getNbDePage())));
+        ((TextView) findViewById(R.id.text_info_isbn)).setText(verifNull(livre.getIsbn()));
         layoutDisplay(LAYOUT_MAIN);
     }
 
+    /**
+     * Si la chaine vos null retourne "Non disponible" sinon retourne la chaine inchangée
+     * @param text la chaine à tester
+     * @return la chaine
+     */
+    private String verifNull(String text){
+        if(text.equals("null")){
+            return "Donnée non diponible";
+        }else{
+            return text;
+        }
+    }
+
+    /**
+     * Recherche un livre sur internet selon l'isbn en paramètre
+     * @param isbn isbn du livre à recherché
+     */
     private void rechercheLivre(String isbn) {
         this.request.recupJson("https://openlibrary.org/isbn/" + isbn + ".json", VOLLEY_DATA_BOOK);
         layoutDisplay(LAYOUT_LOAD);
     }
 
+    /**
+     * Récupère les données du livre trouvé sur internet
+     * @param bookData le JSONArray téléchargé de livre
+     */
     private void openBookNetwork(JSONObject bookData){
-
         try {
             String titre, editeur, resume, dataParution, image, isbn13;
             titre = editeur = resume = dataParution = image = isbn13 = null;
@@ -120,9 +140,6 @@ public class BookActivity extends AppCompatActivity {
 
             if(bookData.has("title")) {
                 titre = bookData.getString("title");
-            }
-            if(bookData.has("")) {
-                //resume = null;
             }
             if(bookData.has("publishers")){
                 editeur = bookData.getJSONArray("publishers").getString(0);
@@ -140,15 +157,18 @@ public class BookActivity extends AppCompatActivity {
                 isbn13 = bookData.getJSONArray("isbn_13").getString(0);
             }
 
-            this.livre = new Livre(isbn13, titre, "resume", editeur, dataParution, nbDePage, image, this.collection.getId(), this.etagere.getId());
+            this.livre = new Livre(isbn13, titre, null, editeur, dataParution, nbDePage, image, this.collection.getId(), this.etagere.getId());
             bookDisplay();
         }
         catch (Exception e){
             Log.e("ERREUR JSON", e.getMessage());
         }
-
     }
 
+    /**
+     * Permet d'afficher le bon LinearLayout selon l'état de l'activité
+     * @param numeroLayout id du layout
+     */
     private void layoutDisplay(Integer numeroLayout){
         LinearLayout[] layouts = {findViewById(R.id.layoutBookMain), findViewById(R.id.layoutBookLoading), findViewById(R.id.layoutBookError)};
         for(LinearLayout l : layouts){
@@ -177,7 +197,10 @@ public class BookActivity extends AppCompatActivity {
      * @param requestId id de la requête
      */
     private void error(VolleyError error, Integer requestId) {
-        Log.e("ERREUR VOLLEY", ""+error.getMessage());
-        layoutDisplay(LAYOUT_ERROR);
+        if(requestId.equals(VOLLEY_DATA_BOOK)){
+            Log.e("ERREUR VOLLEY", ""+error.getMessage());
+            layoutDisplay(LAYOUT_ERROR);
+        }
     }
+
 }

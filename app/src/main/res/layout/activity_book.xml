@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New book"
+            android:layout_marginBottom="17dp"
             android:textSize="@dimen/textH2"/>
 
         <LinearLayout
@@ -28,18 +30,102 @@
 
             <ImageView
                 android:id="@+id/imageBook"
-                android:layout_width="wrap_content"
-                android:layout_height="300sp"
-                android:layout_gravity="center|top"
-                android:contentDescription="TODO" />
-
-            <TextView
-                android:id="@+id/textBookInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:padding="15dp"
-                android:text=""/>
+                android:layout_weight="3"
+                android:layout_gravity="center|top"
+                android:src="@drawable/ic_twotone_menu_book_24"
+                tools:ignore="NestedWeights" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center">
+
+                <TableRow
+                    android:id="@+id/row_info_publisher"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:text="@string/info_publisher"/>
+                    <TextView
+                        android:id="@+id/text_info_publisher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:text="Casterman Edition"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/row_info_paruption"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:text="@string/info_publication"/>
+                    <TextView
+                        android:id="@+id/text_info_paruption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:text="June 1993"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/row_info_nb_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:text="@string/info_nb_page"/>
+                    <TextView
+                        android:id="@+id/text_info_nb_page"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:text="64"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/row_info_isbn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:text="@string/info_isbn"/>
+                    <TextView
+                        android:id="@+id/text_info_isbn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:text="97285456545554"/>
+                </TableRow>
+
+            </TableLayout>
 
         </LinearLayout>
 

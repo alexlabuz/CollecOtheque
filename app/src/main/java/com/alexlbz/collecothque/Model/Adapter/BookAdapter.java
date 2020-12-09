@@ -39,8 +39,9 @@ public abstract class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewH
         }
     }
 
-    public BookAdapter(List<Livre> bookList) {
+    public BookAdapter(List<Livre> bookList, Context context) {
         this.bookList = bookList;
+        this.context = context;
     }
 
     @NonNull
@@ -67,13 +68,9 @@ public abstract class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewH
             }
 
             @Override
-            public void errorRequest(VolleyError error, Integer requestId) {
-
-            }
+            public void errorRequest(VolleyError error, Integer requestId) {}
         };
-
         request.recupImage("https://covers.openlibrary.org/b/id/" + l.getImage() + ".jpg", 0);
-
     }
 
     @Override
