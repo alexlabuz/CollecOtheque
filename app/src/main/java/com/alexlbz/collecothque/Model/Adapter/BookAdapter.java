@@ -1,5 +1,7 @@
 package com.alexlbz.collecothque.Model.Adapter;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +13,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexlbz.collecothque.Model.Entity.Livre;
+import com.alexlbz.collecothque.Model.RequestDatabase;
 import com.alexlbz.collecothque.R;
+import com.android.volley.VolleyError;
 
 import java.util.List;
 
 public abstract class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> implements View.OnClickListener{
 
     private List<Livre> bookList;
+    private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private CardView mCardViewBook;
@@ -48,13 +53,27 @@ public abstract class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BookAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final BookAdapter.ViewHolder holder, int position) {
         Livre l = bookList.get(position);
         holder.mCardViewBook.setTag(l);
         holder.mCardViewBook.setOnClickListener(this);
         holder.mTextRowName.setText(l.getTitre());
         holder.mTextRowPublisher.setText(l.getEditeur());
-//        holder.mImageRowBook.setImageBitmap();
+
+        RequestDatabase request = new RequestDatabase(context) {
+            @Override
+            public void resultRequest(Object o, Integer requestId) {
+                holder.mImageRowBook.setImageBitmap((Bitmap) o);
+            }
+
+            @Override
+            public void errorRequest(VolleyError error, Integer requestId) {
+
+            }
+        };
+
+        request.recupImage("https://covers.openlibrary.org/b/id/" + l.getImage() + ".jpg", 0);
+
     }
 
     @Override
