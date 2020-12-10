@@ -3,6 +3,9 @@ package com.alexlbz.collecothque.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alexlbz.collecothque.Model.AppDatabase;
@@ -203,4 +207,32 @@ public class BookActivity extends AppCompatActivity {
         }
     }
 
+    private void deleteBook() {
+        this.db.livreDao().delete(this.livre);
+        Toast.makeText(this, "Le livre a bien était supprimé", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) == null){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.book_menu, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_delete_book:
+                deleteBook();
+                break;
+            case R.id.item_move_book:
+                // TODO
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
