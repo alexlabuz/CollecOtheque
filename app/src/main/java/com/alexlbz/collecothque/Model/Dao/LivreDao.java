@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.alexlbz.collecothque.Model.Entity.Livre;
 
@@ -17,6 +18,9 @@ public interface LivreDao {
 
     @Delete
     void delete(Livre livre);
+
+    @Update
+    void update(Livre livre);
 
     @Query("SELECT * FROM Livre WHERE idEtagere = :idEtagere")
     List<Livre> getByEtagere(Integer idEtagere);

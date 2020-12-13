@@ -1,5 +1,6 @@
 package com.alexlbz.collecothque.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -169,6 +173,24 @@ public class BookListActivity extends AppCompatActivity {
             this.db.collectionDao().insert(new Collection(s, this.etagere.getId()));
             Toast.makeText(this, "La collection à était ajouter à " + this.etagere.getLibelle(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) == null){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.shelf_menu, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

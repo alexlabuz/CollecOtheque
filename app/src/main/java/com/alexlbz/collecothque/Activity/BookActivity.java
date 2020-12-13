@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alexlbz.collecothque.AlertDialogApp;
 import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Entity.Collection;
 import com.alexlbz.collecothque.Model.Entity.Etagere;
@@ -229,7 +230,7 @@ public class BookActivity extends AppCompatActivity {
                 deleteBook();
                 break;
             case R.id.item_move_book:
-                // TODO
+                AlertDialogApp.bookChangeLibraryDialog(this, this, this.livre);
                 break;
         }
 

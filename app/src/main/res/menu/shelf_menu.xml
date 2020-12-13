@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_delete_shelf"
+        android:title="@string/delete_shelf_item" />
+    <item
+        android:id="@+id/item_name_shelf"
+        android:title="Changer le nom de l'étagère" />
+
+    <item
+        android:id="@+id/item_collection_management"
+        android:title="Gestion des collections" />
+</menu>

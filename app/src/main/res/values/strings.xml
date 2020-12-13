@@ -23,5 +23,6 @@
     <string name="info_isbn">Code ISBN</string>
     <string name="delete_book_item">Retirer le livre</string>
     <string name="move_book_item">Déplacer le livre</string>
+    <string name="delete_shelf_item">Supprimer l\'étagère</string>
 
 </resources>
