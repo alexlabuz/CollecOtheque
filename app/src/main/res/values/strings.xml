@@ -11,8 +11,8 @@
 
     <string name="library_name_chose">Nom de la bibliothèque</string>
     <string name="shelf_name_chose">Nom de l\'étagère</string>
-    <string name="shelf_color_chose">Couleur de l\'étagère</string>
-    <string name="book_color_chose">Code ISBN du livre</string>
+    <string name="collection_color_chose">Couleur de la collection</string>
+    <string name="book_isbn_chose">Code ISBN du livre</string>
     <string name="collection_name_chose">Nom de la collection</string>
 
     <string name="book_info">Editeur : %s \nDate de paruption : %s \nNombre de page : %s \nCode ISBN : %s</string>

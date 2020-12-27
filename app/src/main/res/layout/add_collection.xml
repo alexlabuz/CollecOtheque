@@ -20,6 +20,14 @@
             android:inputType="text"
             android:autofillHints="" />
 
+        <EditText
+            android:id="@+id/editColorAddCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/collection_color_chose"
+            android:inputType="number"
+            android:autofillHints="" />
+
     </LinearLayout>
 
 

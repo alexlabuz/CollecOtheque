@@ -22,7 +22,10 @@ public interface LivreDao {
     @Update
     void update(Livre livre);
 
-    @Query("SELECT * FROM Livre WHERE idEtagere = :idEtagere")
+    @Query("SELECT * " +
+            "FROM Livre, Collection, Etagere " +
+            "WHERE Livre.idCollection = Collection.id " +
+            "AND Collection.idEtagere = :idEtagere")
     List<Livre> getByEtagere(Integer idEtagere);
 
 }

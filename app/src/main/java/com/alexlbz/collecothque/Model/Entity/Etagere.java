@@ -2,11 +2,17 @@ package com.alexlbz.collecothque.Model.Entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(entity = Bibliotheque.class,
+        parentColumns = "id",
+        childColumns = "idLibrary",
+        onDelete = CASCADE))
 public class Etagere implements Serializable {
     @PrimaryKey
     private Integer id;
@@ -14,15 +20,11 @@ public class Etagere implements Serializable {
     @ColumnInfo(name = "libelle")
     private String libelle;
 
-    @ColumnInfo(name = "color")
-    private Integer color;
-
     @ColumnInfo(name = "idLibrary")
     private Integer idLibrary;
 
-    public Etagere(String libelle, Integer color, Integer idLibrary) {
+    public Etagere(String libelle, Integer idLibrary) {
         this.libelle = libelle;
-        this.color = color;
         this.idLibrary = idLibrary;
     }
 
@@ -40,14 +42,6 @@ public class Etagere implements Serializable {
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
-    }
-
-    public Integer getColor() {
-        return color;
-    }
-
-    public void setColor(Integer color) {
-        this.color = color;
     }
 
     public Integer getIdLibrary() {

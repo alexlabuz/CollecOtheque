@@ -87,12 +87,14 @@ public class BookListActivity extends AppCompatActivity {
 
     private void refreshBookList(){
         List<Livre> livreList = db.livreDao().getByEtagere(this.etagere.getId());
+
         BookAdapter bookAdapter = new BookAdapter(livreList, this) {
             @Override
             public void onClick(View view) {
                 clicBook(view);
             }
         };
+
         this.mRecyclerBook.setAdapter(bookAdapter);
         this.mRecyclerBook.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -161,16 +163,16 @@ public class BookListActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addCollection(""+((EditText)view.findViewById(R.id.editTextAddCollection)).getText());
+                        addCollection(""+((EditText) view.findViewById(R.id.editTextAddCollection)).getText(), Integer.parseInt(""+((EditText) view.findViewById(R.id.editColorAddCollection)).getText()));
                     }
                 })
                 .setNegativeButton("Annuler", null)
                 .create().show();
     }
 
-    private void addCollection(String s) {
+    private void addCollection(String s, Integer c) {
         if(s.length() > 0){
-            this.db.collectionDao().insert(new Collection(s, this.etagere.getId()));
+            this.db.collectionDao().insert(new Collection(s, c, this.etagere.getId()));
             Toast.makeText(this, "La collection à était ajouter à " + this.etagere.getLibelle(), Toast.LENGTH_SHORT).show();
         }
     }

@@ -2,11 +2,17 @@ package com.alexlbz.collecothque.Model.Entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(entity = Utilisateur.class,
+        parentColumns = "id",
+        childColumns = "idUser",
+        onDelete = CASCADE))
 public class Bibliotheque implements Serializable {
     @PrimaryKey
     private Integer id;

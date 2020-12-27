@@ -23,7 +23,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private AppDatabase db;
     private Context context = this;
     private Utilisateur utilisateur;
@@ -46,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
 
         this.db = AppDatabase.getInstance(this);
         this.utilisateur = new Utilisateur("AlexLbz", "alex.labuz@live.fr");
+
+        if(db.utilisateurDao().getAll().size() <= 0){
+            db.utilisateurDao().insert(this.utilisateur);
+        }
 
         this.mBtnAddLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,16 +91,16 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addBook(""+((EditText) view.findViewById(R.id.editTextAddLibrary)).getText());
+                        addLibrary(""+((EditText) view.findViewById(R.id.editTextAddLibrary)).getText());
                     }
                 })
                 .setNegativeButton("Annuler", null)
                 .create().show();
     }
 
-    private void addBook(String bookName) {
+    private void addLibrary(String bookName) {
         if(bookName.length() > 0){
-            this.db.bibliothequeDao().insert(new Bibliotheque(bookName, 1));
+            this.db.bibliothequeDao().insert(new Bibliotheque(bookName, this.utilisateur.getId()));
             Toast.makeText(this, "La bibliothèque à était crée", Toast.LENGTH_SHORT).show();
             refrechLibraryList();
         }

@@ -162,7 +162,7 @@ public class BookActivity extends AppCompatActivity {
                 isbn13 = bookData.getJSONArray("isbn_13").getString(0);
             }
 
-            this.livre = new Livre(isbn13, titre, null, editeur, dataParution, nbDePage, image, this.collection.getId(), this.etagere.getId());
+            this.livre = new Livre(isbn13, titre, null, editeur, dataParution, nbDePage, image, this.collection.getId());
             bookDisplay();
         }
         catch (Exception e){

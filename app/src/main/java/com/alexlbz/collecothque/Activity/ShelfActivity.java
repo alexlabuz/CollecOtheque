@@ -93,16 +93,16 @@ public class ShelfActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addShelf(""+((EditText) view.findViewById(R.id.editTextAddShelf)).getText(), Integer.parseInt(""+((EditText) view.findViewById(R.id.editColorAddShelf)).getText()));
+                        addShelf(""+((EditText) view.findViewById(R.id.editTextAddShelf)).getText());
                     }
                 })
                 .setNegativeButton("Annuler", null)
                 .create().show();
     }
 
-    private void addShelf(String shelfName, Integer shelfColor) {
-        if(shelfName.length() > 0 && shelfColor != null){
-            this.db.etageresDao().insert(new Etagere(shelfName, shelfColor, this.bibliotheque.getId()));
+    private void addShelf(String shelfName) {
+        if(shelfName.length() > 0){
+            this.db.etageresDao().insert(new Etagere(shelfName, this.bibliotheque.getId()));
             Toast.makeText(this, "L'étagère à était ajouter à " + this.bibliotheque.getName(), Toast.LENGTH_SHORT).show();
             refrechShelfList();
         }

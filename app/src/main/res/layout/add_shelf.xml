@@ -20,14 +20,6 @@
             android:inputType="text"
             android:autofillHints="" />
 
-        <EditText
-            android:id="@+id/editColorAddShelf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/shelf_color_chose"
-            android:inputType="number"
-            android:autofillHints="" />
-
     </LinearLayout>
 
 </LinearLayout>

@@ -3,11 +3,17 @@ package com.alexlbz.collecothque.Model.Entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = @ForeignKey(entity = Collection.class,
+        parentColumns = "id",
+        childColumns = "idCollection",
+        onDelete = CASCADE))
 public class Livre implements Serializable {
     @PrimaryKey
     private Integer id;
@@ -36,10 +42,7 @@ public class Livre implements Serializable {
     @ColumnInfo(name = "idCollection")
     private Integer idCollection;
 
-    @ColumnInfo(name = "idEtagere")
-    private Integer idEtagere;
-
-    public Livre(String isbn, String titre, String resume, String editeur, String dateParution, Integer nbDePage, String image, Integer idCollection, Integer idEtagere) { this.id = id;
+    public Livre(String isbn, String titre, String resume, String editeur, String dateParution, Integer nbDePage, String image, Integer idCollection) {
         this.isbn = isbn;
         this.titre = titre;
         this.resume = resume;
@@ -48,7 +51,6 @@ public class Livre implements Serializable {
         this.nbDePage = nbDePage;
         this.image = image;
         this.idCollection = idCollection;
-        this.idEtagere = idEtagere;
     }
 
     public Integer getId() {
@@ -121,13 +123,5 @@ public class Livre implements Serializable {
 
     public void setIdCollection(Integer idCollection) {
         this.idCollection = idCollection;
-    }
-
-    public Integer getIdEtagere() {
-        return idEtagere;
-    }
-
-    public void setIdEtagere(Integer idEtagere) {
-        this.idEtagere = idEtagere;
     }
 }

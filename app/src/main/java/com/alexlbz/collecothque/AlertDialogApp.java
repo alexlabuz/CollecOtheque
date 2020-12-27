@@ -144,7 +144,6 @@ public class AlertDialogApp {
                         }else{
                             // Déplacement du livre
                             livre.setIdCollection(idCollection[0]);
-                            livre.setIdEtagere(idEtagere[0]);
                             database.livreDao().update(livre);
                             Toast.makeText(context, "Le livre a bien était déplacé.", Toast.LENGTH_SHORT).show();
                             appCompatActivity.finish();

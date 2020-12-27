@@ -46,7 +46,6 @@ public abstract class EtagereAdapter extends RecyclerView.Adapter<EtagereAdapter
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Etagere e = etagereList.get(position);
         holder.mTextRowName.setText(e.getLibelle());
-        holder.mCardRowShelf.setCardBackgroundColor(e.getColor());
         holder.mCardRowShelf.setTag(e);
         holder.mCardRowShelf.setOnClickListener(this);
     }
