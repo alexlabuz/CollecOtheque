@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alexlbz.collecothque.Model.AppDatabase;
+import com.alexlbz.collecothque.Model.Entity.Collection;
 import com.alexlbz.collecothque.Model.Entity.Livre;
 import com.alexlbz.collecothque.Model.RequestDatabase;
 import com.alexlbz.collecothque.R;
@@ -28,6 +30,7 @@ public abstract class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewH
         private CardView mCardViewBook;
         private TextView mTextRowName;
         private TextView mTextRowPublisher;
+        private TextView mTextRowCollection;
         private ImageView mImageRowBook;
 
         public ViewHolder(@NonNull View itemView) {
@@ -35,6 +38,7 @@ public abstract class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewH
             this.mCardViewBook = itemView.findViewById(R.id.row_card_book);
             this.mTextRowName = itemView.findViewById(R.id.row_name_book);
             this.mTextRowPublisher = itemView.findViewById(R.id.row_publishers_book);
+            this.mTextRowCollection = itemView.findViewById(R.id.row_collection_book);
             this.mImageRowBook = itemView.findViewById(R.id.row_image_book);
         }
     }
@@ -60,6 +64,8 @@ public abstract class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewH
         holder.mCardViewBook.setOnClickListener(this);
         holder.mTextRowName.setText(l.getTitre());
         holder.mTextRowPublisher.setText(l.getEditeur());
+        String collectionLibelle = ((Collection) AppDatabase.getInstance(context).collectionDao().selectById(l.getIdCollection())).getLibelle();
+        holder.mTextRowCollection.setText(collectionLibelle);
 
         RequestDatabase request = new RequestDatabase(context) {
             @Override

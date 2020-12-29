@@ -22,6 +22,9 @@ public interface CollectionDao {
     @Delete
     void delete(Collection collection);
 
+    @Query("SELECT * FROM Collection WHERE id = :id")
+    Collection selectById(Integer id);
+
     @Query("SELECT * FROM Collection WHERE idEtagere = :idEtagere")
     List<Collection> selectByEtagere(Integer idEtagere);
 

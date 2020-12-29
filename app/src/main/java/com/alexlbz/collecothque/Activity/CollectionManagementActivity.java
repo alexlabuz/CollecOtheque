@@ -56,8 +56,7 @@ public class CollectionManagementActivity extends AppCompatActivity {
             @Override
             public void click(Integer action, Collection collection) {
                 if(action.equals(CollectionAdapter.DELETE_COLLECTION)){
-                    db.collectionDao().delete(collection);
-                    refrechCollectionList();
+                    deleteCollection(collection);
                 }else if(action.equals(CollectionAdapter.UPDATE_COLLECTION)){
                     changeNameCollection(collection);
                 }
@@ -70,27 +69,47 @@ public class CollectionManagementActivity extends AppCompatActivity {
 
     /**
      * Fonction qui ouvre un AlertDialog demandent de changer le nom d'une collection
-     * @param collection id de la collection
+     * @param collection collection à modifier
      */
     private void changeNameCollection(final Collection collection) {
-        final View view = getLayoutInflater().inflate(R.layout.dialog_update_collection, null);
+        final View view = getLayoutInflater().inflate(R.layout.dialog_collection, null);
 
-        ((EditText) view.findViewById(R.id.editChangeNameCollection)).setText(collection.getLibelle());
-        ((EditText) view.findViewById(R.id.editChangeColorCollection)).setText(""+collection.getCouleur());
+        // Préremplie les champs "nom" et "couleur" de la collection
+        ((EditText) view.findViewById(R.id.editTextNameCollection)).setText(collection.getLibelle());
+        ((EditText) view.findViewById(R.id.editTextColorCollection)).setText(""+collection.getCouleur());
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Modifier le nom de " + collection.getLibelle())
+                .setMessage("Saisissez le nouveau nom et/ou la nouvelle couleur de la collection :")
                 .setView(view)
                 .setNegativeButton("Retour", null)
                 .setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        collection.setLibelle(""+((EditText) view.findViewById(R.id.editChangeNameCollection)).getText());
-                        collection.setCouleur(Integer.parseInt(""+((EditText) view.findViewById(R.id.editChangeColorCollection)).getText()));
+                        collection.setLibelle(""+((EditText) view.findViewById(R.id.editTextNameCollection)).getText());
+                        collection.setCouleur(Integer.parseInt(""+((EditText) view.findViewById(R.id.editTextColorCollection)).getText()));
                         db.collectionDao().update(collection);
                         refrechCollectionList();
                     }
                 }).create().show();
+    }
+
+    /**
+     * Fonction qui ouvre un AlertDialog demandent de supprimer la collection
+     * @param collection collection à supprimer
+     */
+    private void deleteCollection(final Collection collection){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Supprimer la collection " + collection.getLibelle() + " ?")
+                .setMessage("Tous les livres de cette collection serons supprimés !")
+                .setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        db.collectionDao().delete(collection);
+                        refrechCollectionList();
+                    }
+                })
+                .setNegativeButton("Retour", null).create().show();
     }
 
 }

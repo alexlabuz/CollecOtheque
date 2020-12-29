@@ -1,8 +1,10 @@
 package com.alexlbz.collecothque.Model.Dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.alexlbz.collecothque.Model.Entity.Etagere;
 
@@ -16,5 +18,11 @@ public interface EtageresDao {
 
     @Insert
     void insert(Etagere etageres);
+
+    @Update
+    void update(Etagere etagere);
+
+    @Delete
+    void delete(Etagere etagere);
 
 }

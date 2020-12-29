@@ -40,6 +40,13 @@
                     android:layout_height="wrap_content"
                     android:text="Ceci est l'éditeur de livre"/>
 
+                <TextView
+                    android:id="@+id/row_collection_book"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Collection : BD"/>
+
             </LinearLayout>
 
         </LinearLayout>

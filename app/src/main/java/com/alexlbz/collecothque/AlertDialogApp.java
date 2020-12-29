@@ -31,7 +31,7 @@ public class AlertDialogApp {
      */
     public static void bookChangeLibraryDialog(final Context context, final AppCompatActivity appCompatActivity, final Livre livre){
         final AppDatabase database = AppDatabase.getInstance(context);
-        View view = appCompatActivity.getLayoutInflater().inflate(R.layout.change_book_library, null);
+        View view = appCompatActivity.getLayoutInflater().inflate(R.layout.dialog_change_book_library, null);
 
         final Integer[] idEtagere = {null};
         final Integer[] idCollection = {null};

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +39,7 @@ public class BookListActivity extends AppCompatActivity {
     private AppDatabase db;
     private Bibliotheque bibliotheque;
     private Etagere etagere;
+    private String lastISBN;
 
     private TextView mTextBookListTitle;
     private RecyclerView mRecyclerBook;
@@ -48,6 +49,7 @@ public class BookListActivity extends AppCompatActivity {
     public final static String INTENT_EXTRA_ISBN = "INTENT_EXTRA_ISBN";
     public final static String INTENT_EXTRA_COLLECTION = "INTENT_EXTRA_COLLECTION";
     public final static String INTENT_EXTRA_BOOK = "INTENT_EXTRA_BOOK";
+    private final Context CONTEXT = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,7 @@ public class BookListActivity extends AppCompatActivity {
 
     private void clicAddBookBtn() {
         if(db.collectionDao().selectByEtagere(this.etagere.getId()).size() > 0) {
-            final View view = getLayoutInflater().inflate(R.layout.add_book, null);
+            final View view = getLayoutInflater().inflate(R.layout.dialog_book, null);
 
             // Récupère le spinner (menu déroulant)
             final Spinner spinner = view.findViewById(R.id.spinnerCollectionAddBook);
@@ -128,6 +130,10 @@ public class BookListActivity extends AppCompatActivity {
             spinner.setAdapter(itemsSpinnerAdapter);
 
             ((EditText) view.findViewById(R.id.editIsbnAddBook)).setText("9782203001206");
+            if(this.lastISBN != null){
+                ((EditText) view.findViewById(R.id.editIsbnAddBook)).setText(this.lastISBN);
+            }
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Ajouter un livre")
                     .setMessage("Veuillez saisir le code ISBN du livre")
@@ -148,6 +154,7 @@ public class BookListActivity extends AppCompatActivity {
     }
 
     private void addBook(String isbn, Collection collection) {
+        this.lastISBN = isbn;
         Intent intent = new Intent(BookListActivity.this, BookActivity.class);
         intent.putExtra(INTENT_EXTRA_ISBN, isbn);
         intent.putExtra(INTENT_EXTRA_COLLECTION, collection);
@@ -155,16 +162,16 @@ public class BookListActivity extends AppCompatActivity {
     }
 
     private void clicAddCollectionBtn() {
-        final View view = getLayoutInflater().inflate(R.layout.add_collection, null);
+        final View view = getLayoutInflater().inflate(R.layout.dialog_collection, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ajouter une collection")
-                .setMessage("Veuillez saisir le nom de la collection à ajouter dans l'étagère")
+                .setMessage("Saisissez le nom et la couleur de la collection :")
                 .setView(view)
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addCollection(""+((EditText) view.findViewById(R.id.editTextAddCollection)).getText(), Integer.parseInt(""+((EditText) view.findViewById(R.id.editColorAddCollection)).getText()));
+                        addCollection(""+((EditText) view.findViewById(R.id.editTextNameCollection)).getText(), Integer.parseInt(""+((EditText) view.findViewById(R.id.editTextColorCollection)).getText()));
                     }
                 })
                 .setNegativeButton("Annuler", null)
@@ -184,6 +191,53 @@ public class BookListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Ouvre un AlertDialog demandent si on supprimer l'étagère actuellement ouvert
+     */
+    private void deleteShelf(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Supprimer l'étagère " + this.etagere.getLibelle() + " ?")
+                .setMessage("Tous les livres et collections de cette étagère serons supprimés !")
+                .setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        db.etageresDao().delete(etagere);
+                        finish();
+                        Toast.makeText(CONTEXT, "L'étagère à bien était supprimé", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Retour", null)
+                .create().show();
+    }
+
+    /**
+     * Ouvre un AlertDialog demandent de changer le nom de l'étagère actuellement ouvert
+     */
+    private void updateShelf(){
+        final View view = getLayoutInflater().inflate(R.layout.dialog_shelf, null);
+
+        ((EditText) view.findViewById(R.id.editTextNameShelf)).setText(this.etagere.getLibelle());
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Modifier l'étagère " + this.etagere.getLibelle() + " ?")
+                .setMessage("Saisissez ne nouveau nom de l'étagère :")
+                .setView(view)
+                .setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String shelfName = String.valueOf(((EditText) view.findViewById(R.id.editTextNameShelf)).getText());
+                        if(shelfName.length() > 0){
+                            etagere.setLibelle(shelfName);
+                            db.etageresDao().update(etagere);
+                            mTextBookListTitle.setText(String.format(getString(R.string.book_list_title), bibliotheque.getName(), etagere.getLibelle()));
+                            Toast.makeText(CONTEXT, "Le nom de l'étagère à bien était modifié", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Retour", null)
+                .create().show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) == null){
@@ -199,6 +253,12 @@ public class BookListActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.item_collection_management:
                 openCollectionsManageger();
+                break;
+            case R.id.item_delete_shelf:
+                deleteShelf();
+                break;
+            case R.id.item_name_shelf:
+                updateShelf();
                 break;
         }
 

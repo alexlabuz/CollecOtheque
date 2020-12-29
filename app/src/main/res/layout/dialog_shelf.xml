@@ -13,20 +13,12 @@
         android:layout_marginRight="30dp">
 
         <EditText
-            android:id="@+id/editTextAddCollection"
+            android:id="@+id/editTextNameShelf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/collection_name_chose"
-            android:inputType="text"
-            android:autofillHints="" />
-
-        <EditText
-            android:id="@+id/editColorAddCollection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/collection_color_chose"
-            android:inputType="number"
-            android:autofillHints="" />
+            android:autofillHints=""
+            android:hint="@string/shelf_name_chose"
+            android:inputType="text" />
 
     </LinearLayout>
 

@@ -75,6 +75,7 @@ public class BookActivity extends AppCompatActivity {
             this.collection = (Collection) getIntent().getSerializableExtra(BookListActivity.INTENT_EXTRA_COLLECTION);
         }else if(getIntent().getSerializableExtra(BookListActivity.INTENT_EXTRA_BOOK) != null){
             this.livre = (Livre) getIntent().getSerializableExtra(BookListActivity.INTENT_EXTRA_BOOK);
+            this.collection = this.db.collectionDao().selectById(this.livre.getIdCollection());
             this.mBtnAddBook.setVisibility(View.GONE);
             bookDisplay();
         }
@@ -106,6 +107,7 @@ public class BookActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.text_info_paruption)).setText(verifNull(livre.getDateParution()));
         ((TextView) findViewById(R.id.text_info_nb_page)).setText(verifNull(String.valueOf(livre.getNbDePage())));
         ((TextView) findViewById(R.id.text_info_isbn)).setText(verifNull(livre.getIsbn()));
+        ((TextView) findViewById(R.id.text_info_collection)).setText(this.collection.getLibelle());
         layoutDisplay(LAYOUT_MAIN);
     }
 
@@ -208,8 +210,7 @@ public class BookActivity extends AppCompatActivity {
 
     private void deleteBook() {
         this.db.livreDao().delete(this.livre);
-        Toast.makeText(this, "Le nom du livre est " + livre.getTitre(), Toast.LENGTH_LONG).show();
-        //Toast.makeText(this, "Le livre a bien était supprimé", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Le livre a bien était supprimé", Toast.LENGTH_SHORT).show();
         finish();
     }
 

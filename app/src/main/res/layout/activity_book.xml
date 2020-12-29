@@ -125,6 +125,27 @@
                         android:text="97285456545554"/>
                 </TableRow>
 
+                <TableRow
+                android:id="@+id/row_info_collection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    android:text="@string/info_collection_name"/>
+                <TextView
+                    android:id="@+id/text_info_collection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="17sp"
+                    android:text="Ma collection"/>
+            </TableRow>
+
             </TableLayout>
 
         </LinearLayout>

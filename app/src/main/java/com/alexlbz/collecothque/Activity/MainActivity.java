@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void clicAddBtn() {
-        final View view = getLayoutInflater().inflate(R.layout.add_library, null);
+        final View view = getLayoutInflater().inflate(R.layout.dialog_library, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ajouter une bibliothèque")
                 .setMessage("Veuillez saisir le nom de la nouvelle bibliothèque")
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addLibrary(""+((EditText) view.findViewById(R.id.editTextAddLibrary)).getText());
+                        addLibrary(""+((EditText) view.findViewById(R.id.editTextNameLibrary)).getText());
                     }
                 })
                 .setNegativeButton("Annuler", null)

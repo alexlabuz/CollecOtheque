@@ -85,7 +85,7 @@ public class ShelfActivity extends AppCompatActivity {
     }
 
     private void clicAddBtn() {
-        final View view = getLayoutInflater().inflate(R.layout.add_shelf, null);
+        final View view = getLayoutInflater().inflate(R.layout.dialog_shelf, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ajouter une étagère")
                 .setMessage("Veuillez saisir le nom de l'étagère à ajouter dans la bibliothèque")
@@ -93,7 +93,7 @@ public class ShelfActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addShelf(""+((EditText) view.findViewById(R.id.editTextAddShelf)).getText());
+                        addShelf(""+((EditText) view.findViewById(R.id.editTextNameShelf)).getText());
                     }
                 })
                 .setNegativeButton("Annuler", null)
@@ -106,6 +106,12 @@ public class ShelfActivity extends AppCompatActivity {
             Toast.makeText(this, "L'étagère à était ajouter à " + this.bibliotheque.getName(), Toast.LENGTH_SHORT).show();
             refrechShelfList();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refrechShelfList();
     }
 
 }

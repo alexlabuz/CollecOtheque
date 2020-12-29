@@ -8,21 +8,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/collection_name_chose"/>
         <EditText
-            android:id="@+id/editChangeNameCollection"
+            android:id="@+id/editTextNameCollection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/collection_name_chose"
             android:inputType="text"
             android:autofillHints="" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/collection_color_chose"/>
         <EditText
-            android:id="@+id/editChangeColorCollection"
+            android:id="@+id/editTextColorCollection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/collection_color_chose"
