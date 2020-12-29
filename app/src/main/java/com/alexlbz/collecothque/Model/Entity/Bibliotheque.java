@@ -12,7 +12,8 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(foreignKeys = @ForeignKey(entity = Utilisateur.class,
         parentColumns = "id",
         childColumns = "idUser",
-        onDelete = CASCADE))
+        onDelete = CASCADE,
+        onUpdate = CASCADE))
 public class Bibliotheque implements Serializable {
     @PrimaryKey
     private Integer id;

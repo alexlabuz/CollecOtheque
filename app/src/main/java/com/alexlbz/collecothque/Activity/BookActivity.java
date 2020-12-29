@@ -39,7 +39,6 @@ public class BookActivity extends AppCompatActivity {
     private RequestDatabase request;
     private AppDatabase db;
     private Livre livre;
-    private Etagere etagere;
     private Collection collection;
 
     private static final Integer VOLLEY_DATA_BOOK = 1;
@@ -73,7 +72,6 @@ public class BookActivity extends AppCompatActivity {
         // Si un code isbn est passé dans l'intent, on recherche le livre sinon on affiche le livre déjà existany
         if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) != null){
             rechercheLivre(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN));
-            this.etagere = (Etagere) getIntent().getSerializableExtra(ShelfActivity.INTENT_EXTRA_SHELF);
             this.collection = (Collection) getIntent().getSerializableExtra(BookListActivity.INTENT_EXTRA_COLLECTION);
         }else if(getIntent().getSerializableExtra(BookListActivity.INTENT_EXTRA_BOOK) != null){
             this.livre = (Livre) getIntent().getSerializableExtra(BookListActivity.INTENT_EXTRA_BOOK);
@@ -210,7 +208,8 @@ public class BookActivity extends AppCompatActivity {
 
     private void deleteBook() {
         this.db.livreDao().delete(this.livre);
-        Toast.makeText(this, "Le livre a bien était supprimé", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Le nom du livre est " + livre.getTitre(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Le livre a bien était supprimé", Toast.LENGTH_SHORT).show();
         finish();
     }
 

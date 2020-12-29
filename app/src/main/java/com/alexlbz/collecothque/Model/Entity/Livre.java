@@ -13,9 +13,11 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(foreignKeys = @ForeignKey(entity = Collection.class,
         parentColumns = "id",
         childColumns = "idCollection",
-        onDelete = CASCADE))
+        onDelete = CASCADE,
+        onUpdate = CASCADE))
 public class Livre implements Serializable {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private Integer id;
 
     @ColumnInfo(name = "ISBN")

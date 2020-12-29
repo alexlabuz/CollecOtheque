@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.alexlbz.collecothque.Model.Entity.Collection;
 
@@ -14,6 +15,9 @@ public interface CollectionDao {
 
     @Insert
     void insert(Collection collection);
+
+    @Update
+    void update(Collection collection);
 
     @Delete
     void delete(Collection collection);

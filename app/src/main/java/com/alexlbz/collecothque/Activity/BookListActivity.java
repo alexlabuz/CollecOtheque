@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -149,7 +151,6 @@ public class BookListActivity extends AppCompatActivity {
         Intent intent = new Intent(BookListActivity.this, BookActivity.class);
         intent.putExtra(INTENT_EXTRA_ISBN, isbn);
         intent.putExtra(INTENT_EXTRA_COLLECTION, collection);
-        intent.putExtra(ShelfActivity.INTENT_EXTRA_SHELF, etagere);
         startActivity(intent);
     }
 
@@ -177,6 +178,12 @@ public class BookListActivity extends AppCompatActivity {
         }
     }
 
+    private void openCollectionsManageger(){
+        Intent intent = new Intent(BookListActivity.this, CollectionManagementActivity.class);
+        intent.putExtra(ShelfActivity.INTENT_EXTRA_SHELF, this.etagere);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) == null){
@@ -186,10 +193,13 @@ public class BookListActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-
+            case R.id.item_collection_management:
+                openCollectionsManageger();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

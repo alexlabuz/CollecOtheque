@@ -12,9 +12,11 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(foreignKeys = @ForeignKey(entity = Etagere.class,
         parentColumns = "id",
         childColumns = "idEtagere",
-        onDelete = CASCADE))
+        onDelete = CASCADE,
+        onUpdate = CASCADE))
 public class Collection implements Serializable{
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private Integer id;
 
     @ColumnInfo(name = "libelle")

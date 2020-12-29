@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/collection_management"
+        android:textSize="@dimen/textH2"/>
+
+    <TextView
+        android:id="@+id/textDescCollectionList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/collection_description"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCollection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"/>
+
+</LinearLayout>
