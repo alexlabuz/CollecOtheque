@@ -12,7 +12,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/shelf_list_title"
-      android:textSize="@dimen/textH2" />
+      android:textStyle="bold"
+      style="@style/textH1" />
 
   <FrameLayout
       android:layout_width="match_parent"

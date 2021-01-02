@@ -29,4 +29,11 @@ public interface LivreDao {
             "AND Etagere.id = :idEtagere")
     List<Livre> getByEtagere(Integer idEtagere);
 
+    @Query("SELECT Livre.* " +
+            "FROM Livre, Collection, Etagere " +
+            "WHERE Livre.idCollection = Collection.id " +
+            "AND Collection.idEtagere = Etagere.id " +
+            "AND Etagere.id = :idEtagere " +
+            "AND Collection.id = :idCollection")
+    List<Livre> getByEtagereCollection(Integer idEtagere, Integer idCollection);
 }

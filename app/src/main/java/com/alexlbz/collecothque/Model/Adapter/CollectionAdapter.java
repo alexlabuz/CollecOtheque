@@ -20,12 +20,14 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
 
     public static final Integer DELETE_COLLECTION = 0;
     public static final Integer UPDATE_COLLECTION = 1;
+    public static final Integer SEE_BOOK_COLLECTION = 2;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView mTextRowName;
         private TextView mTextRowColor;
         private Button mBtUpdate;
         private Button mBtDelete;
+        private Button mBtSeeBookCollection;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -33,6 +35,7 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
             this.mTextRowColor = itemView.findViewById(R.id.row_color_collection);
             this.mBtUpdate = itemView.findViewById(R.id.row_bt_update_collection);
             this.mBtDelete = itemView.findViewById(R.id.row_bt_delete_collection);
+            this.mBtSeeBookCollection = itemView.findViewById(R.id.row_bt_see_book_collection);
         }
     }
 
@@ -66,6 +69,12 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
             @Override
             public void onClick(View view) {
                 click(UPDATE_COLLECTION, c);
+            }
+        });
+        holder.mBtSeeBookCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                click(SEE_BOOK_COLLECTION, c);
             }
         });
     }

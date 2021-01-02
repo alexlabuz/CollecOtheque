@@ -27,5 +27,6 @@
     <string name="delete_shelf_item">Supprimer l\'étagère</string>
     <string name="collection_management">Gestion des collections</string>
     <string name="collection_description">Gérez les collections de l\'étagère %s</string>
+    <string name="toast_delete_library">La bibliothèque à bien été supprimé</string>
 
 </resources>

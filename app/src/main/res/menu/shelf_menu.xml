@@ -6,7 +6,6 @@
     <item
         android:id="@+id/item_name_shelf"
         android:title="Changer le nom de l'étagère" />
-
     <item
         android:id="@+id/item_collection_management"
         android:title="Gestion des collections" />

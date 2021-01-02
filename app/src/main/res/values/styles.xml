@@ -2,9 +2,25 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primaryBlue</item>
+        <item name="colorPrimaryDark">@color/primaryBlue</item>
+        <item name="colorAccent">@color/primaryBlue</item>
+        <item name="android:textViewStyle">@color/dark</item>
+        <item name="android:windowBackground">@color/backgroundWhite</item>
+        <item name="android:navigationBarColor">@color/backgroundWhite</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
+    <style name="textH1" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">26dp</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimaryDark">@color/backgroundWhite</item>
+        <item name="android:windowBackground">@drawable/splah_background</item>
+        <item name="android:navigationBarColor">@color/backgroundWhite</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>

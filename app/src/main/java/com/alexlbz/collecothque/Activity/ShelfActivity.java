@@ -1,13 +1,19 @@
 package com.alexlbz.collecothque.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +33,7 @@ public class ShelfActivity extends AppCompatActivity {
 
     private AppDatabase db;
     private Bibliotheque bibliotheque;
+    public final Context context = this;
 
     public static String INTENT_EXTRA_SHELF = "INTENT_EXTRA_SHELF";
 
@@ -51,14 +58,12 @@ public class ShelfActivity extends AppCompatActivity {
             this.bibliotheque = (Bibliotheque) getIntent().getSerializableExtra(MainActivity.INTENT_EXTRA_LIBRARY);
         }
 
-        this.mTextShelfTitle.setText(String.format(getString(R.string.shelf_list_title), this.bibliotheque.getName()));
         this.mBtnAddShelf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clicAddBtn();
             }
         });
-
         refrechShelfList();
     }
 
@@ -72,6 +77,7 @@ public class ShelfActivity extends AppCompatActivity {
         };
         this.mRecyclerShelf.setAdapter(adapter);
         this.mRecyclerShelf.setLayoutManager(new LinearLayoutManager(this));
+        this.mTextShelfTitle.setText(String.format(getString(R.string.shelf_list_title), this.bibliotheque.getName()));
     }
 
     private void openShelf(View view) {
@@ -106,6 +112,86 @@ public class ShelfActivity extends AppCompatActivity {
             Toast.makeText(this, "L'étagère à était ajouter à " + this.bibliotheque.getName(), Toast.LENGTH_SHORT).show();
             refrechShelfList();
         }
+    }
+
+    /**
+     * Affiche un AlertDialog permettant de modifier le nom de la bibliothéque
+     */
+    private void changeNameLibrary() {
+        final View view = getLayoutInflater().inflate(R.layout.dialog_library, null);
+        final EditText editName = view.findViewById(R.id.editTextNameLibrary);
+        editName.setText(this.bibliotheque.getName());
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Changer le nom de la bibliothèque")
+                .setMessage("Veuillez saisir le nouveau nom de bibliothèque ci-dessous :")
+                .setView(view)
+                .setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String name = ""+editName.getText();
+                        if(name.length() > 0){
+                            bibliotheque.setName(name);
+                            db.bibliothequeDao().update(bibliotheque);
+                            refrechShelfList();
+                        }
+                    }
+                })
+                .setNegativeButton("Retour", null)
+                .create().show();
+    }
+
+    /**
+     * Affiche un AlertDialog confirmant la suppression de la bibliothéque
+     */
+    private void deleteLibrary() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Supprimer la bibliothèque " + this.bibliotheque.getName() + " ?")
+                .setMessage("Cela supprimera tout les livres, collections et étagères contenu dans cette bibliothèque !")
+                .setPositiveButton("Confirmer la suppression", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        db.bibliothequeDao().delete(bibliotheque);
+                        toastDelete();
+                        finish();
+                    }
+                })
+                .setNegativeButton("Retour", null)
+                .create().show();
+    }
+
+    private void toastDelete(){
+        Toast.makeText(this, getString(R.string.toast_delete_library), Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Permet de faire apparaitre le menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) == null){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.library_menu, menu);
+        }
+        return true;
+    }
+
+    /**
+     * Permet d'atribuer les items du menu aux fonction
+     */
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_name_library:
+                changeNameLibrary();
+                break;
+            case R.id.item_delete_library:
+                deleteLibrary();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,8 @@ public class CollectionManagementActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerCollection;
     private TextView mTextDescCollectionList;
+
+    public final static String BUNDLE_EXTRA_COLLECTION = "BUNDLE_EXTRA_COLLECTION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +62,32 @@ public class CollectionManagementActivity extends AppCompatActivity {
                     deleteCollection(collection);
                 }else if(action.equals(CollectionAdapter.UPDATE_COLLECTION)){
                     changeNameCollection(collection);
+                }else if(action.equals(CollectionAdapter.SEE_BOOK_COLLECTION)){
+                    seeBooksList(collection);
                 }
             }
         };
 
         this.mRecyclerCollection.setAdapter(adapter);
         this.mRecyclerCollection.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    /**
+     * Fonction qui ouvre un AlertDialog demandent de supprimer la collection
+     * @param collection collection à supprimer
+     */
+    private void deleteCollection(final Collection collection){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Supprimer la collection " + collection.getLibelle() + " ?")
+                .setMessage("Tous les livres de cette collection serons supprimés !")
+                .setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        db.collectionDao().delete(collection);
+                        refrechCollectionList();
+                    }
+                })
+                .setNegativeButton("Retour", null).create().show();
     }
 
     /**
@@ -95,21 +118,14 @@ public class CollectionManagementActivity extends AppCompatActivity {
     }
 
     /**
-     * Fonction qui ouvre un AlertDialog demandent de supprimer la collection
-     * @param collection collection à supprimer
+     * Permet d'afficher la liste des livres d'une collection sélectionné
+     * @param collection la collection selectionné
      */
-    private void deleteCollection(final Collection collection){
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Supprimer la collection " + collection.getLibelle() + " ?")
-                .setMessage("Tous les livres de cette collection serons supprimés !")
-                .setPositiveButton("Supprimer", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        db.collectionDao().delete(collection);
-                        refrechCollectionList();
-                    }
-                })
-                .setNegativeButton("Retour", null).create().show();
+    private void seeBooksList(Collection collection) {
+        Intent intent = new Intent();
+        intent.putExtra(BUNDLE_EXTRA_COLLECTION, collection);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 }

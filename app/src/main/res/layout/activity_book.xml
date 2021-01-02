@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:text="New book"
             android:layout_marginBottom="17dp"
-            android:textSize="@dimen/textH2"/>
+            style="@style/textH1"/>
 
         <LinearLayout
             android:layout_width="match_parent"

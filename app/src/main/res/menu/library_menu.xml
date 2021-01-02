@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_name_library"
+        android:title="Changer le nom de la bibliothèque"/>
+    <item
+        android:id="@+id/item_delete_library"
+        android:title="Supprimer la bibliothèque"/>
+</menu>

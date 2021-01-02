@@ -1,8 +1,10 @@
 package com.alexlbz.collecothque.Model.Dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
 
@@ -19,4 +21,10 @@ public interface BibliothequeDao {
 
     @Insert
     void insert(Bibliotheque bibliotheque);
+
+    @Update
+    void update(Bibliotheque bibliotheque);
+
+    @Delete
+    void delete(Bibliotheque bibliotheque);
 }

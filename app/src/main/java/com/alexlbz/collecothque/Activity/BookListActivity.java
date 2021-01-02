@@ -1,6 +1,7 @@
 package com.alexlbz.collecothque.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +41,7 @@ public class BookListActivity extends AppCompatActivity {
     private Bibliotheque bibliotheque;
     private Etagere etagere;
     private String lastISBN;
+    private Collection selectedCollection;
 
     private TextView mTextBookListTitle;
     private RecyclerView mRecyclerBook;
@@ -49,6 +51,7 @@ public class BookListActivity extends AppCompatActivity {
     public final static String INTENT_EXTRA_ISBN = "INTENT_EXTRA_ISBN";
     public final static String INTENT_EXTRA_COLLECTION = "INTENT_EXTRA_COLLECTION";
     public final static String INTENT_EXTRA_BOOK = "INTENT_EXTRA_BOOK";
+    public final static Integer INTENT_RESULT_COLLECTION = 0;
     private final Context CONTEXT = this;
 
     @Override
@@ -90,7 +93,12 @@ public class BookListActivity extends AppCompatActivity {
     }
 
     private void refreshBookList(){
-        List<Livre> livreList = db.livreDao().getByEtagere(this.etagere.getId());
+        List<Livre> livreList;
+        if(this.selectedCollection == null){
+            livreList = db.livreDao().getByEtagere(this.etagere.getId());
+        }else{
+            livreList = db.livreDao().getByEtagereCollection(this.etagere.getId(), this.selectedCollection.getId());
+        }
 
         BookAdapter bookAdapter = new BookAdapter(livreList, this) {
             @Override
@@ -188,7 +196,7 @@ public class BookListActivity extends AppCompatActivity {
     private void openCollectionsManageger(){
         Intent intent = new Intent(BookListActivity.this, CollectionManagementActivity.class);
         intent.putExtra(ShelfActivity.INTENT_EXTRA_SHELF, this.etagere);
-        startActivity(intent);
+        startActivityForResult(intent, INTENT_RESULT_COLLECTION);
     }
 
     /**
@@ -238,6 +246,9 @@ public class BookListActivity extends AppCompatActivity {
                 .create().show();
     }
 
+    /**
+     * Permet de faire apparaitre le menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) == null){
@@ -247,6 +258,9 @@ public class BookListActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Permet d'atribuer les items du menu aux fonction
+     */
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -263,6 +277,20 @@ public class BookListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Permet de récupèrer les information de la CollectionManagementActivity
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // CollectionManagementActivity
+        if(INTENT_RESULT_COLLECTION == requestCode && RESULT_OK == resultCode){
+            assert data != null;
+            this.selectedCollection = (Collection) data.getSerializableExtra(CollectionManagementActivity.BUNDLE_EXTRA_COLLECTION);
+            refreshBookList();
+        }
     }
 
     @Override

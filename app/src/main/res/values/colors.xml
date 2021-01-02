@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#50a8ff</color>
     <color name="danger">#df4646</color>
+
+    <color name="primaryBlue">#2daae1</color>
+    <color name="backgroundWhite">#fafafa</color>
+    <color name="dark">#000000</color>
 </resources>
