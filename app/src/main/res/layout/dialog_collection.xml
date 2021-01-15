@@ -26,17 +26,18 @@
             android:autofillHints="" />
 
         <TextView
+            android:id="@+id/textColorCollection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:textStyle="bold"
             android:text="@string/collection_color_chose"/>
-        <EditText
-            android:id="@+id/editTextColorCollection"
+
+        <HorizontalScrollView
+            android:id="@+id/scrollPickerCollection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/collection_color_chose"
-            android:inputType="number"
-            android:autofillHints="" />
+            android:orientation="horizontal" />
 
     </LinearLayout>
 

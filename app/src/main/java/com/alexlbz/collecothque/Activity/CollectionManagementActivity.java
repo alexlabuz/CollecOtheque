@@ -1,23 +1,23 @@
 package com.alexlbz.collecothque.Activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import com.alexlbz.collecothque.Model.Adapter.CollectionAdapter;
 import com.alexlbz.collecothque.Model.AppDatabase;
+import com.alexlbz.collecothque.Model.ColorPicker;
 import com.alexlbz.collecothque.Model.Entity.Collection;
 import com.alexlbz.collecothque.Model.Entity.Etagere;
-import com.alexlbz.collecothque.Model.RequestDatabase;
 import com.alexlbz.collecothque.R;
 
 import java.util.List;
@@ -56,6 +56,7 @@ public class CollectionManagementActivity extends AppCompatActivity {
         List<Collection> list = this.db.collectionDao().selectByEtagere(this.etagere.getId());
 
         CollectionAdapter adapter = new CollectionAdapter(list) {
+
             @Override
             public void click(Integer action, Collection collection) {
                 if(action.equals(CollectionAdapter.DELETE_COLLECTION)){
@@ -97,9 +98,19 @@ public class CollectionManagementActivity extends AppCompatActivity {
     private void changeNameCollection(final Collection collection) {
         final View view = getLayoutInflater().inflate(R.layout.dialog_collection, null);
 
+        final Integer[] colorSelected = {0};
+
+        ColorPicker colorPicker = new ColorPicker(this, (ViewGroup) view.findViewById(R.id.scrollPickerCollection), ColorPicker.getColorList()) {
+            @Override
+            public void selectedColor(Integer color) {
+                colorSelected[0] = color;
+            }
+        };
+        colorPicker.createPicker();
+
         // Préremplie les champs "nom" et "couleur" de la collection
         ((EditText) view.findViewById(R.id.editTextNameCollection)).setText(collection.getLibelle());
-        ((EditText) view.findViewById(R.id.editTextColorCollection)).setText(""+collection.getCouleur());
+        colorPicker.setSelectCase(collection.getCouleur());
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Modifier le nom de " + collection.getLibelle())
@@ -110,7 +121,7 @@ public class CollectionManagementActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         collection.setLibelle(""+((EditText) view.findViewById(R.id.editTextNameCollection)).getText());
-                        collection.setCouleur(Integer.parseInt(""+((EditText) view.findViewById(R.id.editTextColorCollection)).getText()));
+                        collection.setCouleur(colorSelected[0]);
                         db.collectionDao().update(collection);
                         refrechCollectionList();
                     }

@@ -64,8 +64,9 @@ public abstract class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewH
         holder.mCardViewBook.setOnClickListener(this);
         holder.mTextRowName.setText(l.getTitre());
         holder.mTextRowPublisher.setText(l.getEditeur());
-        String collectionLibelle = ((Collection) AppDatabase.getInstance(context).collectionDao().selectById(l.getIdCollection())).getLibelle();
-        holder.mTextRowCollection.setText(collectionLibelle);
+        Collection collection = ((Collection) AppDatabase.getInstance(context).collectionDao().selectById(l.getIdCollection()));
+        holder.mTextRowCollection.setText(collection.getLibelle());
+        holder.mTextRowCollection.setTextColor(collection.getCouleur());
 
         RequestDatabase request = new RequestDatabase(context) {
             @Override

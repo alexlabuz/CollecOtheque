@@ -20,6 +20,12 @@
         android:layout_height="wrap_content"
         android:text="@string/btn_add_collection"/>
 
+    <Button
+        android:id="@+id/btnDisplayAllBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bt_display_all_book"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

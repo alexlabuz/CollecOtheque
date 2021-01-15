@@ -2,4 +2,7 @@
 <resources>
     <dimen name="textH1">26sp</dimen>
     <dimen name="textH2">18sp</dimen>
+
+    <dimen name="sizeCase">40dp</dimen>
+    <dimen name="marginCase">2dp</dimen>
 </resources>

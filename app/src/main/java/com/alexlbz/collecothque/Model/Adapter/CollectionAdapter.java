@@ -24,7 +24,6 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView mTextRowName;
-        private TextView mTextRowColor;
         private Button mBtUpdate;
         private Button mBtDelete;
         private Button mBtSeeBookCollection;
@@ -32,7 +31,6 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.mTextRowName = itemView.findViewById(R.id.row_name_collection);
-            this.mTextRowColor = itemView.findViewById(R.id.row_color_collection);
             this.mBtUpdate = itemView.findViewById(R.id.row_bt_update_collection);
             this.mBtDelete = itemView.findViewById(R.id.row_bt_delete_collection);
             this.mBtSeeBookCollection = itemView.findViewById(R.id.row_bt_see_book_collection);
@@ -58,7 +56,7 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
         final Collection c = collectionList.get(position);
 
         holder.mTextRowName.setText(c.getLibelle());
-        holder.mTextRowColor.setText("Couleur : " + c.getCouleur());
+        holder.mTextRowName.setTextColor(c.getCouleur());
         holder.mBtDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

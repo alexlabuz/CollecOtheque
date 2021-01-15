@@ -28,5 +28,6 @@
     <string name="collection_management">Gestion des collections</string>
     <string name="collection_description">Gérez les collections de l\'étagère %s</string>
     <string name="toast_delete_library">La bibliothèque à bien été supprimé</string>
+    <string name="bt_display_all_book">Afficher tout les livres</string>
 
 </resources>

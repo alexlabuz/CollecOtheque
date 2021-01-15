@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,20 +12,25 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alexlbz.collecothque.Model.Adapter.BookAdapter;
 import com.alexlbz.collecothque.Model.AppDatabase;
+import com.alexlbz.collecothque.Model.ColorPicker;
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
 import com.alexlbz.collecothque.Model.Entity.Collection;
 import com.alexlbz.collecothque.Model.Entity.Etagere;
@@ -47,6 +53,7 @@ public class BookListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerBook;
     private FloatingActionButton mBtnAddBook;
     private Button mBtnAddCollection;
+    private Button mBtnDisplayAllBook;
 
     public final static String INTENT_EXTRA_ISBN = "INTENT_EXTRA_ISBN";
     public final static String INTENT_EXTRA_COLLECTION = "INTENT_EXTRA_COLLECTION";
@@ -66,6 +73,7 @@ public class BookListActivity extends AppCompatActivity {
         this.mRecyclerBook = findViewById(R.id.recyclerBook);
         this.mBtnAddBook = findViewById(R.id.btnIsbn);
         this.mBtnAddCollection = findViewById(R.id.btnAddCollection);
+        this.mBtnDisplayAllBook = findViewById(R.id.btnDisplayAllBook);
 
         this.db = AppDatabase.getInstance(this);
 
@@ -88,6 +96,12 @@ public class BookListActivity extends AppCompatActivity {
                 clicAddCollectionBtn();
             }
         });
+        this.mBtnDisplayAllBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clicDisplayAllBook();
+            }
+        });
 
         refreshBookList();
     }
@@ -96,8 +110,10 @@ public class BookListActivity extends AppCompatActivity {
         List<Livre> livreList;
         if(this.selectedCollection == null){
             livreList = db.livreDao().getByEtagere(this.etagere.getId());
+            this.mBtnDisplayAllBook.setVisibility(View.GONE);
         }else{
             livreList = db.livreDao().getByEtagereCollection(this.etagere.getId(), this.selectedCollection.getId());
+            this.mBtnDisplayAllBook.setVisibility(View.VISIBLE);
         }
 
         BookAdapter bookAdapter = new BookAdapter(livreList, this) {
@@ -172,6 +188,19 @@ public class BookListActivity extends AppCompatActivity {
     private void clicAddCollectionBtn() {
         final View view = getLayoutInflater().inflate(R.layout.dialog_collection, null);
 
+        final Integer[] colorSelected = {0};
+
+        ColorPicker colorPicker = new ColorPicker(this, (ViewGroup) view.findViewById(R.id.scrollPickerCollection), ColorPicker.getColorList()) {
+            @Override
+            public void selectedColor(Integer color) {
+                colorSelected[0] = color;
+            }
+        };
+        colorPicker.createPicker();
+
+        // Sélectionne par défaut la première couleur
+        colorPicker.setSelectCase(ColorPicker.getColorList().get(0));
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ajouter une collection")
                 .setMessage("Saisissez le nom et la couleur de la collection :")
@@ -179,7 +208,7 @@ public class BookListActivity extends AppCompatActivity {
                 .setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        addCollection(""+((EditText) view.findViewById(R.id.editTextNameCollection)).getText(), Integer.parseInt(""+((EditText) view.findViewById(R.id.editTextColorCollection)).getText()));
+                        addCollection(""+((EditText) view.findViewById(R.id.editTextNameCollection)).getText(), colorSelected[0]);
                     }
                 })
                 .setNegativeButton("Annuler", null)
@@ -191,6 +220,11 @@ public class BookListActivity extends AppCompatActivity {
             this.db.collectionDao().insert(new Collection(s, c, this.etagere.getId()));
             Toast.makeText(this, "La collection à était ajouter à " + this.etagere.getLibelle(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void clicDisplayAllBook() {
+        this.selectedCollection = null;
+        refreshBookList();
     }
 
     private void openCollectionsManageger(){
