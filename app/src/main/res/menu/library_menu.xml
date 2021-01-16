@@ -6,4 +6,7 @@
     <item
         android:id="@+id/item_delete_library"
         android:title="Supprimer la bibliothèque"/>
+    <item
+        android:id="@+id/item_show_all_book"
+        android:title="Afficher tous les livres"/>
 </menu>

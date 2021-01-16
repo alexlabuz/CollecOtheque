@@ -5,29 +5,35 @@
     <string name="btn_add_collection">Ajouter une collection de livre</string>
     <string name="choise_user">Choisissez un utilisateur</string>
 
+    <!-- H1 activity -->
     <string name="library_list_title">Mes bibliothèques</string>
     <string name="shelf_list_title">Etagères de %s</string>
     <string name="book_list_title">%s / %s</string>
+
+
+    <!-- BOOK INFO -->
+    <string name="info_publisher">Editeur</string>
+    <string name="info_publication">Date de paruption</string>
+    <string name="info_nb_page">Nombre de page</string>
+    <string name="info_isbn">Code ISBN</string>
+    <string name="info_collection_name">Collection</string>
 
     <string name="library_name_chose">Nom de la bibliothèque</string>
     <string name="shelf_name_chose">Nom de l\'étagère</string>
     <string name="collection_color_chose">Couleur de la collection</string>
     <string name="book_isbn_chose">Code ISBN du livre</string>
     <string name="collection_name_chose">Nom de la collection</string>
-
     <string name="book_info">Editeur : %s \nDate de paruption : %s \nNombre de page : %s \nCode ISBN : %s</string>
     <string name="load_book_text">Nous recherchons votre livre…</string>
-    <string name="info_publisher">Editeur</string>
-    <string name="info_publication">Date de paruption</string>
-    <string name="info_nb_page">Nombre de page</string>
-    <string name="info_isbn">Code ISBN</string>
-    <string name="info_collection_name">Collection</string>
     <string name="delete_book_item">Retirer le livre</string>
     <string name="move_book_item">Déplacer le livre</string>
     <string name="delete_shelf_item">Supprimer l\'étagère</string>
     <string name="collection_management">Gestion des collections</string>
     <string name="collection_description">Gérez les collections de l\'étagère %s</string>
     <string name="toast_delete_library">La bibliothèque à bien été supprimé</string>
-    <string name="bt_display_all_book">Afficher tout les livres</string>
+    <string name="bt_display_all_book">Afficher tous les livres</string>
+    <string name="error">Erreur</string>
+    <string name="error_text">Désolé mais il y a une erreur !</string>
+    <string name="back">Retour</string>
 
 </resources>

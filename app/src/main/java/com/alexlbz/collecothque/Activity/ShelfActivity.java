@@ -165,14 +165,21 @@ public class ShelfActivity extends AppCompatActivity {
     }
 
     /**
+     * Permet d'afficher tous les livre de la bibliothéque
+     */
+    private void showAllBook() {
+        Intent intent = new Intent(ShelfActivity.this, BookListActivity.class);
+        intent.putExtra(MainActivity.INTENT_EXTRA_LIBRARY, this.bibliotheque);
+        startActivity(intent);
+    }
+
+    /**
      * Permet de faire apparaitre le menu
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) == null){
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.library_menu, menu);
-        }
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.library_menu, menu);
         return true;
     }
 
@@ -189,6 +196,8 @@ public class ShelfActivity extends AppCompatActivity {
             case R.id.item_delete_library:
                 deleteLibrary();
                 break;
+            case R.id.item_show_all_book:
+                showAllBook();
         }
 
         return super.onOptionsItemSelected(item);

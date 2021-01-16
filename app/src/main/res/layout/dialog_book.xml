@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Code ISBN"/>
+            android:text="@string/info_isbn"/>
         <EditText
             android:id="@+id/editIsbnAddBook"
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Collection"/>
+            android:text="@string/info_collection_name"/>
         <Spinner
             android:id="@+id/spinnerCollectionAddBook"
             android:layout_width="match_parent"

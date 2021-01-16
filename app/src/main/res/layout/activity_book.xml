@@ -199,7 +199,7 @@
             android:textSize="@dimen/textH2"
             android:textColor="@color/danger"
             android:textStyle="bold"
-            android:text="Erreur"/>
+            android:text="@string/error"/>
 
 
         <TextView
@@ -207,14 +207,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Désolé mais il y a une erreur !"/>
+            android:text="@string/error_text"/>
 
         <Button
             android:id="@+id/btBackBook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Retour"/>
+            android:text="@string/back"/>
 
     </LinearLayout>
 

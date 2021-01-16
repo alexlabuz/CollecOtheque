@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,9 +11,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,7 +78,13 @@ public class BookListActivity extends AppCompatActivity {
             this.etagere = (Etagere) getIntent().getSerializableExtra(ShelfActivity.INTENT_EXTRA_SHELF);
         }
 
-        this.mTextBookListTitle.setText(String.format(getString(R.string.book_list_title), this.bibliotheque.getName(), this.etagere.getLibelle()));
+        if(this.etagere != null){
+            this.mTextBookListTitle.setText(String.format(getString(R.string.book_list_title), this.bibliotheque.getName(), this.etagere.getLibelle()));
+        }else{
+            this.mTextBookListTitle.setText(this.bibliotheque.getName());
+            this.mBtnAddCollection.setVisibility(View.GONE);
+            this.mBtnAddBook.setVisibility(View.GONE);
+        }
 
         this.mBtnAddBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,10 +111,14 @@ public class BookListActivity extends AppCompatActivity {
     private void refreshBookList(){
         List<Livre> livreList;
         if(this.selectedCollection == null){
-            livreList = db.livreDao().getByEtagere(this.etagere.getId());
             this.mBtnDisplayAllBook.setVisibility(View.GONE);
+            if(this.etagere != null) {
+                livreList = db.livreDao().getByEtagere(this.etagere.getId());
+            }else{
+                livreList = db.livreDao().getByLibrary(this.bibliotheque.getId());
+            }
         }else{
-            livreList = db.livreDao().getByEtagereCollection(this.etagere.getId(), this.selectedCollection.getId());
+            livreList = db.livreDao().getByCollection(this.selectedCollection.getId());
             this.mBtnDisplayAllBook.setVisibility(View.VISIBLE);
         }
 
@@ -285,7 +291,7 @@ public class BookListActivity extends AppCompatActivity {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(getIntent().getStringExtra(BookListActivity.INTENT_EXTRA_ISBN) == null){
+        if(this.etagere != null){
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.shelf_menu, menu);
         }

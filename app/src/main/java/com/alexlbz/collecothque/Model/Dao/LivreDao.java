@@ -22,6 +22,14 @@ public interface LivreDao {
     @Update
     void update(Livre livre);
 
+    @Query("SELECT Livre.*" +
+            "FROM Livre, Collection, Etagere, Bibliotheque " +
+            "WHERE Livre.idCollection = Collection.id " +
+            "AND Collection.idEtagere = Etagere.id " +
+            "AND Etagere.idLibrary = Bibliotheque.id " +
+            "AND Bibliotheque.id = :idLibrary")
+    List<Livre> getByLibrary(Integer idLibrary);
+
     @Query("SELECT Livre.* " +
             "FROM Livre, Collection, Etagere " +
             "WHERE Livre.idCollection = Collection.id " +
@@ -33,7 +41,6 @@ public interface LivreDao {
             "FROM Livre, Collection, Etagere " +
             "WHERE Livre.idCollection = Collection.id " +
             "AND Collection.idEtagere = Etagere.id " +
-            "AND Etagere.id = :idEtagere " +
             "AND Collection.id = :idCollection")
-    List<Livre> getByEtagereCollection(Integer idEtagere, Integer idCollection);
+    List<Livre> getByCollection(Integer idCollection);
 }
