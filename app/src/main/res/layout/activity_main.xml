@@ -33,6 +33,8 @@
             app:srcCompat="@drawable/ic_baseline_add"
             android:focusable="true"
             tools:ignore="VectorDrawableCompat"
+            app:tint="@color/backgroundWhite"
+            app:backgroundTint="@color/primaryBlue"
             android:layout_margin="12dp"/>
 
     </FrameLayout>

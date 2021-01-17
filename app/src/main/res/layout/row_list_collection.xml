@@ -32,17 +32,21 @@
                     android:id="@+id/row_bt_see_book_collection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Voir les livres"/>
+                    android:layout_margin="2dp"
+                    android:text="Voir livres"/>
                 <Button
                     android:id="@+id/row_bt_update_collection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     android:text="Modifier"/>
                 <Button
                     android:id="@+id/row_bt_delete_collection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Supprimer"/>
+                    android:layout_margin="2dp"
+                    app:backgroundTint="@color/danger"
+                    android:text="Effaçer"/>
             </LinearLayout>
 
         </LinearLayout>

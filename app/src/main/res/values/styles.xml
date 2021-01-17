@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryBlue</item>
         <item name="colorPrimaryDark">@color/primaryBlue</item>
@@ -12,12 +12,12 @@
         <item name="fontFamily">@font/asap</item>
     </style>
 
-    <style name="textH1" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
+    <style name="textH1" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">26dp</item>
+        <item name="android:textSize">26sp</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimaryDark">@color/backgroundWhite</item>
         <item name="android:windowBackground">@drawable/splah_background</item>
         <item name="android:navigationBarColor">@color/backgroundWhite</item>

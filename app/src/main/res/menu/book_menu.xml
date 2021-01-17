@@ -5,5 +5,5 @@
         android:title="@string/move_book_item"/>
     <item
         android:id="@+id/item_delete_book"
-        android:title="@string/delete_book_item"/>
+        android:title="@string/delete_book_item" />
 </menu>

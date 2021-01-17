@@ -44,6 +44,8 @@
             android:layout_gravity="end|bottom"
             app:srcCompat="@drawable/ic_baseline_add"
             android:focusable="true"
+            app:tint="@color/backgroundWhite"
+            app:backgroundTint="@color/primaryBlue"
             tools:ignore="VectorDrawableCompat"
             android:layout_margin="12dp"/>
 

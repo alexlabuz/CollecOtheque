@@ -31,6 +31,7 @@ public class BookActivity extends AppCompatActivity {
     private TextView mTextBookName;
     private ImageView mImageBook;
     private Button mBtnAddBook;
+    private Button mBtnBack;
 
     private final static Integer LAYOUT_MAIN = 0;
     private final static Integer LAYOUT_LOAD = 1;
@@ -55,6 +56,7 @@ public class BookActivity extends AppCompatActivity {
         this.mTextBookName = findViewById(R.id.textBookName);
         this.mImageBook = findViewById(R.id.imageBook);
         this.mBtnAddBook = findViewById(R.id.btnAddBook);
+        this.mBtnBack = findViewById(R.id.btBackBook);
 
         this.request = new RequestDatabase(this) {
             @Override
@@ -84,6 +86,12 @@ public class BookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addBookLibrary();
+            }
+        });
+        this.mBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
