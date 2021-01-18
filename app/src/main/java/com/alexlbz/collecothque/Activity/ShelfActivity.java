@@ -198,6 +198,7 @@ public class ShelfActivity extends AppCompatActivity {
                 break;
             case R.id.item_show_all_book:
                 showAllBook();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

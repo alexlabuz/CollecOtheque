@@ -1,15 +1,22 @@
 package com.alexlbz.collecothque.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.ColorUtils;
@@ -107,6 +114,45 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "La bibliothèque à était crée", Toast.LENGTH_SHORT).show();
             refrechLibraryList();
         }
+    }
+
+    /**
+     * Affiche un AlertDialog avec les informations de l'applicatipn
+     */
+    private void displayInfoApp() {
+        View view = getLayoutInflater().inflate(R.layout.dialog_app_info, null);
+
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(getString(R.string.dialog_info_title))
+                .setView(view)
+                .setPositiveButton(getString(R.string.back), null)
+                .create().show();
+    }
+
+    /**
+     * Permet de faire apparaitre le menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    /**
+     * Permet d'atribuer les items du menu aux fonction
+     */
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.item_info_app:
+                displayInfoApp();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -34,5 +34,8 @@
     <string name="error">Erreur</string>
     <string name="error_text">Désolé mais il y a une erreur !</string>
     <string name="back">Retour</string>
+    <string name="app_info_item">Information</string>
+    <string name="dialog_info_title">Information application</string>
+    <string name="dialog_info_desc">CollecOtheque est une application permettant de ranger vos livres dans une bibliothèque virtuel.\n\nProjet SLAM 4 pour le lycée Guy Mollet.</string>
 
 </resources>

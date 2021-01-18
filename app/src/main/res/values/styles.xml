@@ -19,7 +19,7 @@
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimaryDark">@color/backgroundWhite</item>
-        <item name="android:windowBackground">@drawable/splah_background</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
         <item name="android:navigationBarColor">@color/backgroundWhite</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowLightStatusBar">true</item>
