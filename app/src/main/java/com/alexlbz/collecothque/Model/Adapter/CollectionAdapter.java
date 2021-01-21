@@ -1,6 +1,7 @@
 package com.alexlbz.collecothque.Model.Adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Entity.Collection;
 import com.alexlbz.collecothque.R;
 
@@ -17,6 +19,7 @@ import java.util.List;
 
 public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionAdapter.ViewHolder> {
     private List<Collection> collectionList;
+    private Context context;
 
     public static final Integer DELETE_COLLECTION = 0;
     public static final Integer UPDATE_COLLECTION = 1;
@@ -24,6 +27,7 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private TextView mTextRowName;
+        private TextView mTextRowNbBook;
         private Button mBtUpdate;
         private Button mBtDelete;
         private Button mBtSeeBookCollection;
@@ -31,14 +35,16 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.mTextRowName = itemView.findViewById(R.id.row_name_collection);
+            this.mTextRowNbBook = itemView.findViewById(R.id.row_nb_livre_collection);
             this.mBtUpdate = itemView.findViewById(R.id.row_bt_update_collection);
             this.mBtDelete = itemView.findViewById(R.id.row_bt_delete_collection);
             this.mBtSeeBookCollection = itemView.findViewById(R.id.row_bt_see_book_collection);
         }
     }
 
-    public CollectionAdapter(List<Collection> collectionList){
+    public CollectionAdapter(List<Collection> collectionList, Context context){
         this.collectionList = collectionList;
+        this.context = context;
     }
 
     @NonNull
@@ -55,8 +61,11 @@ public abstract class CollectionAdapter extends RecyclerView.Adapter<CollectionA
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Collection c = collectionList.get(position);
 
+        Integer nbLivre = AppDatabase.getInstance(this.context).livreDao().getCountByCollection(c.getId());
+
         holder.mTextRowName.setText(c.getLibelle());
         holder.mTextRowName.setTextColor(c.getCouleur());
+        holder.mTextRowNbBook.setText(String.format(context.getString(R.string.row_nb_book), ""+nbLivre));
         holder.mBtDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

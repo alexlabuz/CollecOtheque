@@ -55,7 +55,7 @@ public class CollectionManagementActivity extends AppCompatActivity {
     private void refrechCollectionList(){
         List<Collection> list = this.db.collectionDao().selectByEtagere(this.etagere.getId());
 
-        CollectionAdapter adapter = new CollectionAdapter(list) {
+        CollectionAdapter adapter = new CollectionAdapter(list, this) {
 
             @Override
             public void click(Integer action, Collection collection) {

@@ -43,4 +43,10 @@ public interface LivreDao {
             "AND Collection.idEtagere = Etagere.id " +
             "AND Collection.id = :idCollection")
     List<Livre> getByCollection(Integer idCollection);
+
+    @Query("SELECT count(Livre.id) " +
+            "FROM Livre, Collection " +
+            "WHERE Livre.idCollection = Collection.id " +
+            "AND Collection.id = :idCollection")
+    Integer getCountByCollection(Integer idCollection);
 }
