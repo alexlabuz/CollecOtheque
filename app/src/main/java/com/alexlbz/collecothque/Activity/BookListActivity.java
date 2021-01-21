@@ -4,14 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,6 +39,7 @@ import com.alexlbz.collecothque.Model.Entity.Livre;
 import com.alexlbz.collecothque.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +61,7 @@ public class BookListActivity extends AppCompatActivity {
     public final static String INTENT_EXTRA_COLLECTION = "INTENT_EXTRA_COLLECTION";
     public final static String INTENT_EXTRA_BOOK = "INTENT_EXTRA_BOOK";
     public final static Integer INTENT_RESULT_COLLECTION = 0;
+    public final static Integer INTENT_RESULT_SCANNER = 1;
     private final Context CONTEXT = this;
 
     @Override
@@ -164,7 +171,8 @@ public class BookListActivity extends AppCompatActivity {
                 ((EditText) view.findViewById(R.id.editIsbnAddBook)).setText(this.lastISBN);
             }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            // Création du AlertDialog
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Ajouter un livre")
                     .setMessage("Veuillez saisir le code ISBN du livre")
                     .setView(view)
@@ -177,10 +185,26 @@ public class BookListActivity extends AppCompatActivity {
                         }
                     })
                     .setNegativeButton("Annuler", null)
+                    .setNeutralButton("Ouvrir le scanneur", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            opanScanner(collectionList.get(spinner.getSelectedItemPosition()));
+                        }
+                    })
                     .create().show();
+
         }else{
             Toast.makeText(this, "Veuillez d'abord ajouter une collection !", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * Démarre le lecteur de code barre
+     */
+    private void opanScanner(Collection collection) {
+        Intent intent = new Intent(BookListActivity.this, ScannerActivity.class);
+        intent.putExtra(INTENT_EXTRA_COLLECTION, collection);
+        startActivityForResult(intent, INTENT_RESULT_SCANNER);
     }
 
     private void addBook(String isbn, Collection collection) {
@@ -331,6 +355,14 @@ public class BookListActivity extends AppCompatActivity {
             this.selectedCollection = (Collection) data.getSerializableExtra(CollectionManagementActivity.BUNDLE_EXTRA_COLLECTION);
             refreshBookList();
         }
+        // ScannerActivity
+        if(INTENT_RESULT_SCANNER == requestCode && RESULT_OK == resultCode){
+            assert data != null;
+            Log.d("rrr", "Code ISBN : "+data.getStringExtra(ScannerActivity.BUNDLE_EXTRA_CODE_ISBN));
+            this.lastISBN = data.getStringExtra(ScannerActivity.BUNDLE_EXTRA_CODE_ISBN); // Enregistre le code ISBN dans l'activity
+            addBook(data.getStringExtra(ScannerActivity.BUNDLE_EXTRA_CODE_ISBN), (Collection) data.getSerializableExtra(ScannerActivity.BUNDLE_EXTRA_COLLECTION));
+        }
+
     }
 
     @Override
