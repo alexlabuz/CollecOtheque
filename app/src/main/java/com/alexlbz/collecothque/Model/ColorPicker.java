@@ -24,7 +24,7 @@ public abstract class ColorPicker implements View.OnClickListener {
         this.emplacement = emplacement;
         this.colorList = colorList;
     }
-
+    
     /**
      * Créer la palette de couleurs avec les couleurs demandé
      */

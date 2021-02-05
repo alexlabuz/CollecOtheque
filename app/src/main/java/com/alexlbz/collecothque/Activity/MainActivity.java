@@ -4,27 +4,22 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Adapter.BibliothequeAdapter;
+import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
 import com.alexlbz.collecothque.Model.Entity.Utilisateur;
 import com.alexlbz.collecothque.R;

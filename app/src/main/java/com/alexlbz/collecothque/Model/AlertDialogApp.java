@@ -1,4 +1,4 @@
-package com.alexlbz.collecothque;
+package com.alexlbz.collecothque.Model;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,11 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Entity.Bibliotheque;
 import com.alexlbz.collecothque.Model.Entity.Collection;
 import com.alexlbz.collecothque.Model.Entity.Etagere;
 import com.alexlbz.collecothque.Model.Entity.Livre;
+import com.alexlbz.collecothque.R;
 
 import java.util.ArrayList;
 import java.util.List;

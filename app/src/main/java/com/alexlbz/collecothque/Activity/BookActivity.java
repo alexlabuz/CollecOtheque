@@ -16,10 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.alexlbz.collecothque.AlertDialogApp;
+import com.alexlbz.collecothque.Model.AlertDialogApp;
 import com.alexlbz.collecothque.Model.AppDatabase;
 import com.alexlbz.collecothque.Model.Entity.Collection;
-import com.alexlbz.collecothque.Model.Entity.Etagere;
 import com.alexlbz.collecothque.Model.Entity.Livre;
 import com.alexlbz.collecothque.Model.RequestDatabase;
 import com.alexlbz.collecothque.R;
