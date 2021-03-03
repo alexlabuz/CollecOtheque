@@ -36,7 +36,7 @@
     <string name="back">Retour</string>
     <string name="app_info_item">Information</string>
     <string name="dialog_info_title">Information application</string>
-    <string name="dialog_info_desc">CollecOtheque est une application permettant de ranger vos livres dans une bibliothèque virtuelle.\n\nProjet SLAM 4 pour le lycée Guy Mollet.</string>
+    <string name="dialog_info_desc">CollecOthèque est une application permettant de ranger vos livres dans une bibliothèque virtuelle.\n\nProjet SLAM 4 pour le lycée Guy Mollet.</string>
     <string name="row_nb_book">Nombre de livre : %s</string>
     <string name="bt_scanner_code">Scanner le code barre</string>
     <string name="library">Bibliothéque</string>
